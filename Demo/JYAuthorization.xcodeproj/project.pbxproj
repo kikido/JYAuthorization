@@ -1,0 +1,613 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1D0E4B9E2237E11600C21570 /* JYAuthorizationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D0E4B9B2237E11600C21570 /* JYAuthorizationManager.m */; };
+		1D0E4B9F2237E11600C21570 /* JYAuthorization.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1D0E4B9C2237E11600C21570 /* JYAuthorization.bundle */; };
+		1D0E4BA12237E26C00C21570 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D0E4BA02237E26C00C21570 /* Contacts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		1D0E4BA32237E3AE00C21570 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D0E4BA22237E3AE00C21570 /* HealthKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		1D0E4BA62237E50000C21570 /* Speech.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D0E4BA52237E4FF00C21570 /* Speech.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		1DF622C7223684AD00542708 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF622C6223684AD00542708 /* AppDelegate.m */; };
+		1DF622CA223684AD00542708 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF622C9223684AD00542708 /* ViewController.m */; };
+		1DF622CF223684AF00542708 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DF622CE223684AF00542708 /* Assets.xcassets */; };
+		1DF622D5223684AF00542708 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF622D4223684AF00542708 /* main.m */; };
+		1DF6231F223686A800542708 /* JYForm.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1DF622DD223686A700542708 /* JYForm.bundle */; };
+		1DF62320223686A800542708 /* JYForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF622DE223686A700542708 /* JYForm.m */; };
+		1DF62321223686A800542708 /* JYFormOptionsObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF622E6223686A700542708 /* JYFormOptionsObject.m */; };
+		1DF62322223686A800542708 /* JYFormOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF622E7223686A700542708 /* JYFormOptionsViewController.m */; };
+		1DF62323223686A800542708 /* JYFormDatePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF622EB223686A700542708 /* JYFormDatePickerCell.m */; };
+		1DF62324223686A800542708 /* JYFormSelectorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF622EC223686A700542708 /* JYFormSelectorCell.m */; };
+		1DF62325223686A800542708 /* JYFormDateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF622EF223686A700542708 /* JYFormDateCell.m */; };
+		1DF62326223686A800542708 /* JYFormTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF622F0223686A700542708 /* JYFormTextFieldCell.m */; };
+		1DF62327223686A800542708 /* JYFormButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF622F7223686A700542708 /* JYFormButtonCell.m */; };
+		1DF62328223686A800542708 /* JYFormBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF622F8223686A700542708 /* JYFormBaseCell.m */; };
+		1DF62329223686A800542708 /* JYFormCheckCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF622FD223686A800542708 /* JYFormCheckCell.m */; };
+		1DF6232A223686A800542708 /* JYFormSliderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF622FE223686A800542708 /* JYFormSliderCell.m */; };
+		1DF6232B223686A800542708 /* JYFormStepCounterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF622FF223686A800542708 /* JYFormStepCounterCell.m */; };
+		1DF6232C223686A800542708 /* JYFormSegmentedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF62300223686A800542708 /* JYFormSegmentedCell.m */; };
+		1DF6232D223686A800542708 /* JYFormSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF62301223686A800542708 /* JYFormSwitchCell.m */; };
+		1DF6232E223686A800542708 /* JYFormTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF62302223686A800542708 /* JYFormTextViewCell.m */; };
+		1DF6232F223686A800542708 /* JYFormRowNavigationAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF62306223686A800542708 /* JYFormRowNavigationAccessoryView.m */; };
+		1DF62330223686A800542708 /* JYFormTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF62307223686A800542708 /* JYFormTextView.m */; };
+		1DF62331223686A800542708 /* JYFormDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF62309223686A800542708 /* JYFormDescriptor.m */; };
+		1DF62332223686A800542708 /* JYFormRowDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF6230A223686A800542708 /* JYFormRowDescriptor.m */; };
+		1DF62333223686A800542708 /* JYFormSectionDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF6230D223686A800542708 /* JYFormSectionDescriptor.m */; };
+		1DF62334223686A800542708 /* UIColor+JYFormAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF62311223686A800542708 /* UIColor+JYFormAdditions.m */; };
+		1DF62335223686A800542708 /* UIView+JYFormAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF62313223686A800542708 /* UIView+JYFormAdditions.m */; };
+		1DF62336223686A800542708 /* NSString+JYFormAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF62316223686A800542708 /* NSString+JYFormAdditions.m */; };
+		1DF62337223686A800542708 /* NSObject+JYFormAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF62319223686A800542708 /* NSObject+JYFormAdditions.m */; };
+		1DF62338223686A800542708 /* JYFormValidationObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF6231C223686A800542708 /* JYFormValidationObject.m */; };
+		1DF62339223686A800542708 /* JYFormRegexValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF6231D223686A800542708 /* JYFormRegexValidator.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1D0E4B9B2237E11600C21570 /* JYAuthorizationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYAuthorizationManager.m; sourceTree = "<group>"; };
+		1D0E4B9C2237E11600C21570 /* JYAuthorization.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = JYAuthorization.bundle; sourceTree = "<group>"; };
+		1D0E4B9D2237E11600C21570 /* JYAuthorizationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYAuthorizationManager.h; sourceTree = "<group>"; };
+		1D0E4BA02237E26C00C21570 /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
+		1D0E4BA22237E3AE00C21570 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		1D0E4BA42237E3AE00C21570 /* JYAuthorization.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JYAuthorization.entitlements; sourceTree = "<group>"; };
+		1D0E4BA52237E4FF00C21570 /* Speech.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Speech.framework; path = System/Library/Frameworks/Speech.framework; sourceTree = SDKROOT; };
+		1DF622C2223684AD00542708 /* JYAuthorization.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JYAuthorization.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1DF622C5223684AD00542708 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		1DF622C6223684AD00542708 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		1DF622C8223684AD00542708 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		1DF622C9223684AD00542708 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		1DF622CE223684AF00542708 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1DF622D3223684AF00542708 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1DF622D4223684AF00542708 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		1DF622DD223686A700542708 /* JYForm.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = JYForm.bundle; sourceTree = "<group>"; };
+		1DF622DE223686A700542708 /* JYForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYForm.m; sourceTree = "<group>"; };
+		1DF622E0223686A700542708 /* JYFormRowDescriptorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFormRowDescriptorViewController.h; sourceTree = "<group>"; };
+		1DF622E1223686A700542708 /* JYFormValidatorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFormValidatorProtocol.h; sourceTree = "<group>"; };
+		1DF622E2223686A700542708 /* JYFormDescriptorDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFormDescriptorDelegate.h; sourceTree = "<group>"; };
+		1DF622E3223686A700542708 /* JYFormInlineRowDescriptorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFormInlineRowDescriptorCell.h; sourceTree = "<group>"; };
+		1DF622E4223686A700542708 /* JYFormDescriptorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFormDescriptorCell.h; sourceTree = "<group>"; };
+		1DF622E6223686A700542708 /* JYFormOptionsObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYFormOptionsObject.m; sourceTree = "<group>"; };
+		1DF622E7223686A700542708 /* JYFormOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYFormOptionsViewController.m; sourceTree = "<group>"; };
+		1DF622E8223686A700542708 /* JYFormOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFormOptionsViewController.h; sourceTree = "<group>"; };
+		1DF622E9223686A700542708 /* JYFormOptionsObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFormOptionsObject.h; sourceTree = "<group>"; };
+		1DF622EB223686A700542708 /* JYFormDatePickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYFormDatePickerCell.m; sourceTree = "<group>"; };
+		1DF622EC223686A700542708 /* JYFormSelectorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYFormSelectorCell.m; sourceTree = "<group>"; };
+		1DF622ED223686A700542708 /* JYFormBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFormBaseCell.h; sourceTree = "<group>"; };
+		1DF622EE223686A700542708 /* JYFormButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFormButtonCell.h; sourceTree = "<group>"; };
+		1DF622EF223686A700542708 /* JYFormDateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYFormDateCell.m; sourceTree = "<group>"; };
+		1DF622F0223686A700542708 /* JYFormTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYFormTextFieldCell.m; sourceTree = "<group>"; };
+		1DF622F1223686A700542708 /* JYFormStepCounterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFormStepCounterCell.h; sourceTree = "<group>"; };
+		1DF622F2223686A700542708 /* JYFormSliderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFormSliderCell.h; sourceTree = "<group>"; };
+		1DF622F3223686A700542708 /* JYFormCheckCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFormCheckCell.h; sourceTree = "<group>"; };
+		1DF622F4223686A700542708 /* JYFormTextViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFormTextViewCell.h; sourceTree = "<group>"; };
+		1DF622F5223686A700542708 /* JYFormSwitchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFormSwitchCell.h; sourceTree = "<group>"; };
+		1DF622F6223686A700542708 /* JYFormSegmentedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFormSegmentedCell.h; sourceTree = "<group>"; };
+		1DF622F7223686A700542708 /* JYFormButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYFormButtonCell.m; sourceTree = "<group>"; };
+		1DF622F8223686A700542708 /* JYFormBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYFormBaseCell.m; sourceTree = "<group>"; };
+		1DF622F9223686A800542708 /* JYFormSelectorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFormSelectorCell.h; sourceTree = "<group>"; };
+		1DF622FA223686A800542708 /* JYFormDatePickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFormDatePickerCell.h; sourceTree = "<group>"; };
+		1DF622FB223686A800542708 /* JYFormTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFormTextFieldCell.h; sourceTree = "<group>"; };
+		1DF622FC223686A800542708 /* JYFormDateCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFormDateCell.h; sourceTree = "<group>"; };
+		1DF622FD223686A800542708 /* JYFormCheckCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYFormCheckCell.m; sourceTree = "<group>"; };
+		1DF622FE223686A800542708 /* JYFormSliderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYFormSliderCell.m; sourceTree = "<group>"; };
+		1DF622FF223686A800542708 /* JYFormStepCounterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYFormStepCounterCell.m; sourceTree = "<group>"; };
+		1DF62300223686A800542708 /* JYFormSegmentedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYFormSegmentedCell.m; sourceTree = "<group>"; };
+		1DF62301223686A800542708 /* JYFormSwitchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYFormSwitchCell.m; sourceTree = "<group>"; };
+		1DF62302223686A800542708 /* JYFormTextViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYFormTextViewCell.m; sourceTree = "<group>"; };
+		1DF62304223686A800542708 /* JYFormRowNavigationAccessoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFormRowNavigationAccessoryView.h; sourceTree = "<group>"; };
+		1DF62305223686A800542708 /* JYFormTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFormTextView.h; sourceTree = "<group>"; };
+		1DF62306223686A800542708 /* JYFormRowNavigationAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYFormRowNavigationAccessoryView.m; sourceTree = "<group>"; };
+		1DF62307223686A800542708 /* JYFormTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYFormTextView.m; sourceTree = "<group>"; };
+		1DF62309223686A800542708 /* JYFormDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYFormDescriptor.m; sourceTree = "<group>"; };
+		1DF6230A223686A800542708 /* JYFormRowDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYFormRowDescriptor.m; sourceTree = "<group>"; };
+		1DF6230B223686A800542708 /* JYFormSectionDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFormSectionDescriptor.h; sourceTree = "<group>"; };
+		1DF6230C223686A800542708 /* JYFormDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFormDescriptor.h; sourceTree = "<group>"; };
+		1DF6230D223686A800542708 /* JYFormSectionDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYFormSectionDescriptor.m; sourceTree = "<group>"; };
+		1DF6230E223686A800542708 /* JYFormRowDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFormRowDescriptor.h; sourceTree = "<group>"; };
+		1DF6230F223686A800542708 /* JYForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYForm.h; sourceTree = "<group>"; };
+		1DF62311223686A800542708 /* UIColor+JYFormAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+JYFormAdditions.m"; sourceTree = "<group>"; };
+		1DF62312223686A800542708 /* JYFormAppearanceConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFormAppearanceConfig.h; sourceTree = "<group>"; };
+		1DF62313223686A800542708 /* UIView+JYFormAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+JYFormAdditions.m"; sourceTree = "<group>"; };
+		1DF62314223686A800542708 /* NSString+JYFormAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+JYFormAdditions.h"; sourceTree = "<group>"; };
+		1DF62315223686A800542708 /* NSObject+JYFormAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JYFormAdditions.h"; sourceTree = "<group>"; };
+		1DF62316223686A800542708 /* NSString+JYFormAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JYFormAdditions.m"; sourceTree = "<group>"; };
+		1DF62317223686A800542708 /* UIView+JYFormAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+JYFormAdditions.h"; sourceTree = "<group>"; };
+		1DF62318223686A800542708 /* UIColor+JYFormAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+JYFormAdditions.h"; sourceTree = "<group>"; };
+		1DF62319223686A800542708 /* NSObject+JYFormAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JYFormAdditions.m"; sourceTree = "<group>"; };
+		1DF6231B223686A800542708 /* JYFormRegexValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFormRegexValidator.h; sourceTree = "<group>"; };
+		1DF6231C223686A800542708 /* JYFormValidationObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYFormValidationObject.m; sourceTree = "<group>"; };
+		1DF6231D223686A800542708 /* JYFormRegexValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYFormRegexValidator.m; sourceTree = "<group>"; };
+		1DF6231E223686A800542708 /* JYFormValidationObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYFormValidationObject.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1DF622BF223684AD00542708 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D0E4BA62237E50000C21570 /* Speech.framework in Frameworks */,
+				1D0E4BA12237E26C00C21570 /* Contacts.framework in Frameworks */,
+				1D0E4BA32237E3AE00C21570 /* HealthKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1D0E4B7C22379F4600C21570 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1D0E4BA52237E4FF00C21570 /* Speech.framework */,
+				1D0E4BA22237E3AE00C21570 /* HealthKit.framework */,
+				1D0E4BA02237E26C00C21570 /* Contacts.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1D0E4B9A2237E11600C21570 /* JYAuthorization */ = {
+			isa = PBXGroup;
+			children = (
+				1D0E4B9D2237E11600C21570 /* JYAuthorizationManager.h */,
+				1D0E4B9B2237E11600C21570 /* JYAuthorizationManager.m */,
+				1D0E4B9C2237E11600C21570 /* JYAuthorization.bundle */,
+			);
+			name = JYAuthorization;
+			path = ../../../JYAuthorization;
+			sourceTree = "<group>";
+		};
+		1DF622B9223684AD00542708 = {
+			isa = PBXGroup;
+			children = (
+				1DF622C4223684AD00542708 /* JYAuthorization */,
+				1DF622C3223684AD00542708 /* Products */,
+				1D0E4B7C22379F4600C21570 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		1DF622C3223684AD00542708 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1DF622C2223684AD00542708 /* JYAuthorization.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1DF622C4223684AD00542708 /* JYAuthorization */ = {
+			isa = PBXGroup;
+			children = (
+				1D0E4BA42237E3AE00C21570 /* JYAuthorization.entitlements */,
+				1DF622DB2236869500542708 /* lib */,
+				1DF622C5223684AD00542708 /* AppDelegate.h */,
+				1DF622C6223684AD00542708 /* AppDelegate.m */,
+				1DF622C8223684AD00542708 /* ViewController.h */,
+				1DF622C9223684AD00542708 /* ViewController.m */,
+				1DF622CE223684AF00542708 /* Assets.xcassets */,
+				1DF622D3223684AF00542708 /* Info.plist */,
+				1DF622D4223684AF00542708 /* main.m */,
+			);
+			path = JYAuthorization;
+			sourceTree = "<group>";
+		};
+		1DF622DB2236869500542708 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				1D0E4B9A2237E11600C21570 /* JYAuthorization */,
+				1DF622DC223686A700542708 /* JYForm */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		1DF622DC223686A700542708 /* JYForm */ = {
+			isa = PBXGroup;
+			children = (
+				1DF622DD223686A700542708 /* JYForm.bundle */,
+				1DF622DE223686A700542708 /* JYForm.m */,
+				1DF622DF223686A700542708 /* delegate */,
+				1DF622E5223686A700542708 /* Controller */,
+				1DF622EA223686A700542708 /* Cell */,
+				1DF62303223686A800542708 /* View */,
+				1DF62308223686A800542708 /* descriptor */,
+				1DF6230F223686A800542708 /* JYForm.h */,
+				1DF62310223686A800542708 /* Helper */,
+				1DF6231A223686A800542708 /* validation */,
+			);
+			path = JYForm;
+			sourceTree = "<group>";
+		};
+		1DF622DF223686A700542708 /* delegate */ = {
+			isa = PBXGroup;
+			children = (
+				1DF622E0223686A700542708 /* JYFormRowDescriptorViewController.h */,
+				1DF622E1223686A700542708 /* JYFormValidatorProtocol.h */,
+				1DF622E2223686A700542708 /* JYFormDescriptorDelegate.h */,
+				1DF622E3223686A700542708 /* JYFormInlineRowDescriptorCell.h */,
+				1DF622E4223686A700542708 /* JYFormDescriptorCell.h */,
+			);
+			path = delegate;
+			sourceTree = "<group>";
+		};
+		1DF622E5223686A700542708 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1DF622E6223686A700542708 /* JYFormOptionsObject.m */,
+				1DF622E7223686A700542708 /* JYFormOptionsViewController.m */,
+				1DF622E8223686A700542708 /* JYFormOptionsViewController.h */,
+				1DF622E9223686A700542708 /* JYFormOptionsObject.h */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		1DF622EA223686A700542708 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				1DF622EB223686A700542708 /* JYFormDatePickerCell.m */,
+				1DF622EC223686A700542708 /* JYFormSelectorCell.m */,
+				1DF622ED223686A700542708 /* JYFormBaseCell.h */,
+				1DF622EE223686A700542708 /* JYFormButtonCell.h */,
+				1DF622EF223686A700542708 /* JYFormDateCell.m */,
+				1DF622F0223686A700542708 /* JYFormTextFieldCell.m */,
+				1DF622F1223686A700542708 /* JYFormStepCounterCell.h */,
+				1DF622F2223686A700542708 /* JYFormSliderCell.h */,
+				1DF622F3223686A700542708 /* JYFormCheckCell.h */,
+				1DF622F4223686A700542708 /* JYFormTextViewCell.h */,
+				1DF622F5223686A700542708 /* JYFormSwitchCell.h */,
+				1DF622F6223686A700542708 /* JYFormSegmentedCell.h */,
+				1DF622F7223686A700542708 /* JYFormButtonCell.m */,
+				1DF622F8223686A700542708 /* JYFormBaseCell.m */,
+				1DF622F9223686A800542708 /* JYFormSelectorCell.h */,
+				1DF622FA223686A800542708 /* JYFormDatePickerCell.h */,
+				1DF622FB223686A800542708 /* JYFormTextFieldCell.h */,
+				1DF622FC223686A800542708 /* JYFormDateCell.h */,
+				1DF622FD223686A800542708 /* JYFormCheckCell.m */,
+				1DF622FE223686A800542708 /* JYFormSliderCell.m */,
+				1DF622FF223686A800542708 /* JYFormStepCounterCell.m */,
+				1DF62300223686A800542708 /* JYFormSegmentedCell.m */,
+				1DF62301223686A800542708 /* JYFormSwitchCell.m */,
+				1DF62302223686A800542708 /* JYFormTextViewCell.m */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		1DF62303223686A800542708 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1DF62304223686A800542708 /* JYFormRowNavigationAccessoryView.h */,
+				1DF62305223686A800542708 /* JYFormTextView.h */,
+				1DF62306223686A800542708 /* JYFormRowNavigationAccessoryView.m */,
+				1DF62307223686A800542708 /* JYFormTextView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1DF62308223686A800542708 /* descriptor */ = {
+			isa = PBXGroup;
+			children = (
+				1DF62309223686A800542708 /* JYFormDescriptor.m */,
+				1DF6230A223686A800542708 /* JYFormRowDescriptor.m */,
+				1DF6230B223686A800542708 /* JYFormSectionDescriptor.h */,
+				1DF6230C223686A800542708 /* JYFormDescriptor.h */,
+				1DF6230D223686A800542708 /* JYFormSectionDescriptor.m */,
+				1DF6230E223686A800542708 /* JYFormRowDescriptor.h */,
+			);
+			path = descriptor;
+			sourceTree = "<group>";
+		};
+		1DF62310223686A800542708 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				1DF62311223686A800542708 /* UIColor+JYFormAdditions.m */,
+				1DF62312223686A800542708 /* JYFormAppearanceConfig.h */,
+				1DF62313223686A800542708 /* UIView+JYFormAdditions.m */,
+				1DF62314223686A800542708 /* NSString+JYFormAdditions.h */,
+				1DF62315223686A800542708 /* NSObject+JYFormAdditions.h */,
+				1DF62316223686A800542708 /* NSString+JYFormAdditions.m */,
+				1DF62317223686A800542708 /* UIView+JYFormAdditions.h */,
+				1DF62318223686A800542708 /* UIColor+JYFormAdditions.h */,
+				1DF62319223686A800542708 /* NSObject+JYFormAdditions.m */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		1DF6231A223686A800542708 /* validation */ = {
+			isa = PBXGroup;
+			children = (
+				1DF6231B223686A800542708 /* JYFormRegexValidator.h */,
+				1DF6231C223686A800542708 /* JYFormValidationObject.m */,
+				1DF6231D223686A800542708 /* JYFormRegexValidator.m */,
+				1DF6231E223686A800542708 /* JYFormValidationObject.h */,
+			);
+			path = validation;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1DF622C1223684AD00542708 /* JYAuthorization */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DF622D8223684AF00542708 /* Build configuration list for PBXNativeTarget "JYAuthorization" */;
+			buildPhases = (
+				1DF622BE223684AD00542708 /* Sources */,
+				1DF622BF223684AD00542708 /* Frameworks */,
+				1DF622C0223684AD00542708 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JYAuthorization;
+			productName = JYAuthorization;
+			productReference = 1DF622C2223684AD00542708 /* JYAuthorization.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1DF622BA223684AD00542708 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = dqh;
+				TargetAttributes = {
+					1DF622C1223684AD00542708 = {
+						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.HealthKit = {
+								enabled = 1;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = 1DF622BD223684AD00542708 /* Build configuration list for PBXProject "JYAuthorization" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1DF622B9223684AD00542708;
+			productRefGroup = 1DF622C3223684AD00542708 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1DF622C1223684AD00542708 /* JYAuthorization */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1DF622C0223684AD00542708 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D0E4B9F2237E11600C21570 /* JYAuthorization.bundle in Resources */,
+				1DF6231F223686A800542708 /* JYForm.bundle in Resources */,
+				1DF622CF223684AF00542708 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1DF622BE223684AD00542708 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1DF62336223686A800542708 /* NSString+JYFormAdditions.m in Sources */,
+				1DF62325223686A800542708 /* JYFormDateCell.m in Sources */,
+				1DF62333223686A800542708 /* JYFormSectionDescriptor.m in Sources */,
+				1DF62334223686A800542708 /* UIColor+JYFormAdditions.m in Sources */,
+				1DF622CA223684AD00542708 /* ViewController.m in Sources */,
+				1DF62327223686A800542708 /* JYFormButtonCell.m in Sources */,
+				1DF6232C223686A800542708 /* JYFormSegmentedCell.m in Sources */,
+				1DF6232A223686A800542708 /* JYFormSliderCell.m in Sources */,
+				1DF62326223686A800542708 /* JYFormTextFieldCell.m in Sources */,
+				1DF622D5223684AF00542708 /* main.m in Sources */,
+				1D0E4B9E2237E11600C21570 /* JYAuthorizationManager.m in Sources */,
+				1DF62323223686A800542708 /* JYFormDatePickerCell.m in Sources */,
+				1DF6232E223686A800542708 /* JYFormTextViewCell.m in Sources */,
+				1DF6232F223686A800542708 /* JYFormRowNavigationAccessoryView.m in Sources */,
+				1DF62321223686A800542708 /* JYFormOptionsObject.m in Sources */,
+				1DF62331223686A800542708 /* JYFormDescriptor.m in Sources */,
+				1DF6232B223686A800542708 /* JYFormStepCounterCell.m in Sources */,
+				1DF62338223686A800542708 /* JYFormValidationObject.m in Sources */,
+				1DF62320223686A800542708 /* JYForm.m in Sources */,
+				1DF62332223686A800542708 /* JYFormRowDescriptor.m in Sources */,
+				1DF62329223686A800542708 /* JYFormCheckCell.m in Sources */,
+				1DF62337223686A800542708 /* NSObject+JYFormAdditions.m in Sources */,
+				1DF62322223686A800542708 /* JYFormOptionsViewController.m in Sources */,
+				1DF6232D223686A800542708 /* JYFormSwitchCell.m in Sources */,
+				1DF62328223686A800542708 /* JYFormBaseCell.m in Sources */,
+				1DF622C7223684AD00542708 /* AppDelegate.m in Sources */,
+				1DF62330223686A800542708 /* JYFormTextView.m in Sources */,
+				1DF62335223686A800542708 /* UIView+JYFormAdditions.m in Sources */,
+				1DF62339223686A800542708 /* JYFormRegexValidator.m in Sources */,
+				1DF62324223686A800542708 /* JYFormSelectorCell.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1DF622D6223684AF00542708 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		1DF622D7223684AF00542708 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1DF622D9223684AF00542708 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = JYAuthorization/JYAuthorization.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = WX88XVVE62;
+				INFOPLIST_FILE = JYAuthorization/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.dqh.JYAuthorization;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		1DF622DA223684AF00542708 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = JYAuthorization/JYAuthorization.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = WX88XVVE62;
+				INFOPLIST_FILE = JYAuthorization/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.dqh.JYAuthorization;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DF622BD223684AD00542708 /* Build configuration list for PBXProject "JYAuthorization" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DF622D6223684AF00542708 /* Debug */,
+				1DF622D7223684AF00542708 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DF622D8223684AF00542708 /* Build configuration list for PBXNativeTarget "JYAuthorization" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DF622D9223684AF00542708 /* Debug */,
+				1DF622DA223684AF00542708 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1DF622BA223684AD00542708 /* Project object */;
+}
