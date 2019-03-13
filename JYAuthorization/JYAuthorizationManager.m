@@ -56,7 +56,7 @@ NSString *const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
 
 #pragma mark - Public
 
-- (void)requestAccessToServiceType:(JYServiceType)authType completion:(void(^)(BOOL granted, NSError *error))completion;
+- (void)requestAccessToServiceType:(JYServiceType)authType completion:(void(^)(BOOL granted, NSError *error))completion
 {
     NSError *authError = self.authDict[@(authType)];
     // 如果这个值不为空，那就代表已经检查过权限了，结果不通过
@@ -236,7 +236,9 @@ NSString *const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
                         
                     case CNAuthorizationStatusDenied:
                         errorCode = JYAuthorizationErrorDenied;
-                        suggestion = [self _localizedStringForKey:@"addressbook.denied"];break;
+                        suggestion = [self _localizedStringForKey:@"addressbook.denied"];
+                        openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+                        break;
                         
                     case CNAuthorizationStatusAuthorized:
                         errorCode = JYAuthorizationErrorGranted;
