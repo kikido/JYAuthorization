@@ -50,7 +50,7 @@ typedef NS_ENUM(NSUInteger, JYServiceType){
 
 
 #### NSError的使用
-`NSError`如果有不明白的可以看我的另一篇博客[未发布](www.baidu.com)，在这里简单说明下：
+`NSError`如果有不明白的可以看我的另一篇博客[NSError](https://kikido.github.io/2019/03/13/NSError%E4%BA%86%E8%A7%A3%E4%B8%80%E5%93%88/)，在这里简单说明下：
 
 - error.domain为自定义的错误域`JYAuthErrorDomain`
 - error.code为自定义的值
