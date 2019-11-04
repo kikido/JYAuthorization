@@ -103,7 +103,7 @@
 - (void)accessService:(JYServiceType)type
 {
     JYAuthorizationManager *manager = [JYAuthorizationManager shareManager];
-    [manager requestAccessToServiceType:type completion:^(BOOL granted, NSError * _Nonnull error) {
+    [manager requestAccessToService:type completion:^(BOOL granted, NSError * _Nonnull error) {
         if (!granted) {
             [manager jy_showErrorDetail:error viewController:self];
         } else {
