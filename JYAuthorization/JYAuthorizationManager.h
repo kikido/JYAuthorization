@@ -44,12 +44,8 @@ typedef NS_ENUM(NSUInteger, JYServiceType) {
     JYServiceTypeReminder,
     /** 相册 */
     JYServiceTypePhoto,
-    /** 蓝牙 */
-//    JYServiceTypeBlueTooth,
     /** 麦克风 */
     JYServiceTypeMicroPhone,
-    /** 录音 */
-    JYServiceTypeAudioRecord,
     /** 相机 */
     JYServiceTypeCamera,
     /** 语音识别 */
@@ -79,6 +75,9 @@ typedef NS_ENUM(NSUInteger, JYServiceType) {
 /**
  * 查询 app 是否能够使用某项服务
  *
+ * @note 为了避免打包失败，比如你不需要使用语音识别这个服务，但因为 JYAuthorization 包含了访问了语音识别的代码，打包上传的时候会被拒绝掉
+ * 为了避免出现这个问题，JYAuthorization 将所有的服务按块都注释掉了，如果你需要使用某个服务，请在 JYAuthorizationManager.m 文件中将该服务的代码取消注释掉
+ *
  * @param authType 服务类型
  * @param completion 查询得到结果后的下一步操作
  */
@@ -92,7 +91,7 @@ typedef NS_ENUM(NSUInteger, JYServiceType) {
  * @param error 错误信息
  * @param viewController 指定的 UIViewController
  */
-- (void)jy_showErrorDetail:(NSError *)error viewController:(UIViewController *)viewController;
++ (void)jy_showErrorDetail:(NSError *)error viewController:(UIViewController *)viewController;
 
 @end
 

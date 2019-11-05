@@ -100,12 +100,12 @@
     // Do any additional setup after loading the view, typically from a nib.
 }
 
-- (void)accessService:(JYServiceType)type
+- (void)accessService:(JYServiceType)serviceType
 {
     JYAuthorizationManager *manager = [JYAuthorizationManager shareManager];
-    [manager requestAccessToService:type completion:^(BOOL granted, NSError * _Nonnull error) {
+    [manager requestAccessToService:serviceType completion:^(BOOL granted, NSError * _Nonnull error) {
         if (!granted) {
-            [manager jy_showErrorDetail:error viewController:self];
+            [JYAuthorizationManager jy_showErrorDetail:error viewController:self];
         } else {
             // todo...
         }

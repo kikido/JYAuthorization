@@ -7,15 +7,15 @@
 //
 
 #import "JYAuthorizationManager.h"
-#import <CoreLocation/CoreLocation.h>
-#import <AddressBook/AddressBook.h>
-#import <Contacts/Contacts.h>
-#import <EventKit/EventKit.h>
-#import <Photos/Photos.h>
-#import <AVFoundation/AVFoundation.h>
-#import <CoreBluetooth/CoreBluetooth.h>
-#import <Speech/Speech.h>
-#import <HealthKit/HealthKit.h>
+#import <CoreLocation/CoreLocation.h>    // 定位
+//#import <AddressBook/AddressBook.h>      // 通讯录
+//#import <Contacts/Contacts.h>           // 通讯录
+//#import <EventKit/EventKit.h>           // 日历，提醒
+//#import <Photos/Photos.h>               // 相机
+//#import <AVFoundation/AVFoundation.h>    // 麦克风，相机
+//#import <CoreBluetooth/CoreBluetooth.h>  // 蓝牙
+//#import <Speech/Speech.h>               // 语音识别
+//#import <HealthKit/HealthKit.h>         // 健康
 
 
 NSString * const JYAuthErrorDomain    = @"JYAuthErrorDomain";
@@ -101,314 +101,314 @@ NSString * const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
     switch (authType) {
 #pragma mark - 定位
             
-        case JYServiceTypeLocationWhenInUse:// 定位-使用应用期间
-        {
-            description = [self _localizedStringForKey:@"location.description"];
-            if ([CLLocationManager locationServicesEnabled]) {
-                switch ([CLLocationManager authorizationStatus]) {
-                    case kCLAuthorizationStatusNotDetermined:{
-                        // 未决定
-                        errorCode = JYAuthorizationStatusNotDetermined;
-                        suggestion = [self _localizedStringForKey:@"location.notdetermind"];
-                        if (self.accessIfNotDetermined) {
-                            self.serviceType = authType;
-                            self.locationCompletion = completion;
-                            self.locationManager.delegate = self;
-                            [self.locationManager requestWhenInUseAuthorization];
-                            return;
-                        }
-                        break;
-                    }
-                    case kCLAuthorizationStatusRestricted:{
-                        errorCode = JYAuthorizationStatusNotDetermined;
-                        suggestion = [self _localizedStringForKey:@"location.restricted"];
-                        break;
-                    }
-                    case kCLAuthorizationStatusDenied:{
-                        errorCode = JYAuthorizationStatusDenied;
-                        suggestion = [self _localizedStringForKey:@"location.wheninuse.denied"];
-                        openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-                        break;
-                    }
-                    case kCLAuthorizationStatusAuthorizedAlways:{
-                        errorCode = JYAuthorizationStatusDenied;
-                        suggestion = [self _localizedStringForKey:@"location.wheninuse.always"];
-                        openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-                        break;
-                    }
-                    case kCLAuthorizationStatusAuthorizedWhenInUse:{
-                        errorCode = JYAuthorizationStatusGranted;
-                        granted = true;
-                        break;
-                    }
-                    default:break;
-                }
-                _locationCompletion       = nil;
-                _locationManager.delegate = nil;
-                _locationManager          = nil;
-            } else {
-                errorCode = JYAuthorizationStatusUnServiced;
-                suggestion = [self _localizedStringForKey:@"location.unserviced"];
-                openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-            }
-            break;
-        }
-            
-        case JYServiceTypeLocationAlways:// 定位-始终
-        {
-            description = [self _localizedStringForKey:@"location.description"];
-            if ([CLLocationManager locationServicesEnabled]) {
-                switch ([CLLocationManager authorizationStatus]) {
-                    case kCLAuthorizationStatusNotDetermined:{
-                        errorCode = JYAuthorizationStatusNotDetermined;
-                        suggestion = [self _localizedStringForKey:@"location.notdetermind"];
-                        if (self.accessIfNotDetermined) {
-                            self.locationCompletion = completion;
-                            self.locationManager.delegate = self;
-                            [self.locationManager requestAlwaysAuthorization];
-                            return;
-                        }
-                        break;
-                    }
-                    case kCLAuthorizationStatusRestricted:{
-                        errorCode = JYAuthorizationStatusNotDetermined;
-                        suggestion = [self _localizedStringForKey:@"location.restricted"];
-                        break;
-                    }
-                    case kCLAuthorizationStatusDenied:{
-                        errorCode = JYAuthorizationStatusDenied;
-                        suggestion = [self _localizedStringForKey:@"location.always.denied"];
-                        openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-                        break;
-                    }
-                    case kCLAuthorizationStatusAuthorizedAlways:{
-                        errorCode = JYAuthorizationStatusGranted;
-                        granted = true;
-                        break;
-                    }
-                    case kCLAuthorizationStatusAuthorizedWhenInUse:{
-                        errorCode = JYAuthorizationStatusDenied;
-                        suggestion = [self _localizedStringForKey:@"location.always.wheninuse"];
-                        openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-                        break;
-                    }
-                    default:break;
-                }
-                _locationCompletion       = nil;
-                _locationManager.delegate = nil;
-                _locationManager          = nil;
-            } else {
-                errorCode = JYAuthorizationStatusUnServiced;
-                suggestion = [self _localizedStringForKey:@"location.unserviced"];
-                openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-            }
-            break;
-        }
+//        case JYServiceTypeLocationWhenInUse:// 定位-使用应用期间
+//        {
+//            description = JYAuthLocalizedStringForKey(@"location.description");
+//            if ([CLLocationManager locationServicesEnabled]) {
+//                switch ([CLLocationManager authorizationStatus]) {
+//                    case kCLAuthorizationStatusNotDetermined:{
+//                        // 未决定
+//                        errorCode = JYAuthorizationStatusNotDetermined;
+//                        suggestion = JYAuthLocalizedStringForKey(@"location.notdetermind");
+//                        if (self.accessIfNotDetermined) {
+//                            self.serviceType = authType;
+//                            self.locationCompletion = completion;
+//                            self.locationManager.delegate = self;
+//                            [self.locationManager requestWhenInUseAuthorization];
+//                            return;
+//                        }
+//                        break;
+//                    }
+//                    case kCLAuthorizationStatusRestricted:{
+//                        errorCode = JYAuthorizationStatusNotDetermined;
+//                        suggestion = JYAuthLocalizedStringForKey(@"location.restricted");
+//                        break;
+//                    }
+//                    case kCLAuthorizationStatusDenied:{
+//                        errorCode = JYAuthorizationStatusDenied;
+//                        suggestion = JYAuthLocalizedStringForKey(@"location.wheninuse.denied");
+//                        openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+//                        break;
+//                    }
+//                    case kCLAuthorizationStatusAuthorizedAlways:{
+//                        errorCode = JYAuthorizationStatusDenied;
+//                        suggestion = JYAuthLocalizedStringForKey(@"location.wheninuse.always");
+//                        openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+//                        break;
+//                    }
+//                    case kCLAuthorizationStatusAuthorizedWhenInUse:{
+//                        errorCode = JYAuthorizationStatusGranted;
+//                        granted = true;
+//                        break;
+//                    }
+//                    default:break;
+//                }
+//                _locationCompletion       = nil;
+//                _locationManager.delegate = nil;
+//                _locationManager          = nil;
+//            } else {
+//                errorCode = JYAuthorizationStatusUnServiced;
+//                suggestion = JYAuthLocalizedStringForKey(@"location.unserviced");
+//                openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+//            }
+//            break;
+//        }
+//
+//        case JYServiceTypeLocationAlways:// 定位-始终
+//        {
+//            description = JYAuthLocalizedStringForKey(@"location.description");
+//            if ([CLLocationManager locationServicesEnabled]) {
+//                switch ([CLLocationManager authorizationStatus]) {
+//                    case kCLAuthorizationStatusNotDetermined:{
+//                        errorCode = JYAuthorizationStatusNotDetermined;
+//                        suggestion = JYAuthLocalizedStringForKey(@"location.notdetermind");
+//                        if (self.accessIfNotDetermined) {
+//                            self.locationCompletion = completion;
+//                            self.locationManager.delegate = self;
+//                            [self.locationManager requestAlwaysAuthorization];
+//                            return;
+//                        }
+//                        break;
+//                    }
+//                    case kCLAuthorizationStatusRestricted:{
+//                        errorCode = JYAuthorizationStatusNotDetermined;
+//                        suggestion = JYAuthLocalizedStringForKey(@"location.restricted");
+//                        break;
+//                    }
+//                    case kCLAuthorizationStatusDenied:{
+//                        errorCode = JYAuthorizationStatusDenied;
+//                        suggestion = JYAuthLocalizedStringForKey(@"location.always.denied");
+//                        openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+//                        break;
+//                    }
+//                    case kCLAuthorizationStatusAuthorizedAlways:{
+//                        errorCode = JYAuthorizationStatusGranted;
+//                        granted = true;
+//                        break;
+//                    }
+//                    case kCLAuthorizationStatusAuthorizedWhenInUse:{
+//                        errorCode = JYAuthorizationStatusDenied;
+//                        suggestion = JYAuthLocalizedStringForKey(@"location.always.wheninuse");
+//                        openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+//                        break;
+//                    }
+//                    default:break;
+//                }
+//                _locationCompletion       = nil;
+//                _locationManager.delegate = nil;
+//                _locationManager          = nil;
+//            } else {
+//                errorCode = JYAuthorizationStatusUnServiced;
+//                suggestion = JYAuthLocalizedStringForKey(@"location.unserviced");
+//                openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+//            }
+//            break;
+//        }
             
 #pragma mark - 通讯录
             
-        case JYServiceTypeAddressBook:
-        {
-            description = [self _localizedStringForKey:@"addressbook.description"];
-            if (version >= 8.0 && version < 9.0)
-            {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-                switch (ABAddressBookGetAuthorizationStatus()) {
-                    case kABAuthorizationStatusNotDetermined:{
-                        errorCode = JYAuthorizationStatusNotDetermined;
-                        suggestion = [self _localizedStringForKey:@"addressbook.notdetermind"];
-                        if (self.accessIfNotDetermined) {
-                            ABAddressBookRef addressBookRef =  ABAddressBookCreate();
-                            __weak typeof(self) weakSelf = self;
-                            ABAddressBookRequestAccessWithCompletion(addressBookRef, ^(bool granted, CFErrorRef error) {
-                                __strong typeof(weakSelf) strongSelf = weakSelf;
-                                [strongSelf requestAccessToService:authType completion:completion];
-                            });
-                            return;
-                        }
-                        break;
-                    }
-                    case kABAuthorizationStatusRestricted:{
-                        errorCode = JYAuthorizationStatusRestricted;
-                        suggestion = [self _localizedStringForKey:@"addressbook.restricted"];
-                        break;
-                    }
-                    case kABAuthorizationStatusDenied:{
-                        errorCode = JYAuthorizationStatusDenied;
-                        suggestion = [self _localizedStringForKey:@"addressbook.denied"];
-                        openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-                        break;
-                    }
-                    case kABAuthorizationStatusAuthorized:{
-                        errorCode = JYAuthorizationStatusGranted;
-                        granted = true;
-                        break;
-                    }
-                    default:break;
-                }
-#pragma clang diagnostic pop
-            }
-            else
-            {
-                switch ([CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts]) {
-                    case CNAuthorizationStatusNotDetermined:{
-                        errorCode = JYAuthorizationStatusNotDetermined;
-                        suggestion = [self _localizedStringForKey:@"addressbook.notdetermind"];
-                        if (self.accessIfNotDetermined) {
-                            CNContactStore *contactStore = [[CNContactStore alloc] init];
-                            __weak typeof(self) weakSelf = self;
-                            [contactStore requestAccessForEntityType:CNEntityTypeContacts completionHandler:^(BOOL granted, NSError * _Nullable error) {
-                                __strong typeof(weakSelf) strongSelf = weakSelf;
-                                [strongSelf requestAccessToService:authType completion:completion];
-                            }];
-                            return;
-                        }
-                        break;
-                    }
-                    case CNAuthorizationStatusRestricted:{
-                        errorCode = JYAuthorizationStatusRestricted;
-                        suggestion = [self _localizedStringForKey:@"addressbook.restricted"];
-                        break;
-                    }
-                    case CNAuthorizationStatusDenied:{
-                        errorCode = JYAuthorizationStatusDenied;
-                        suggestion = [self _localizedStringForKey:@"addressbook.denied"];
-                        openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-                        break;
-                    }
-                    case CNAuthorizationStatusAuthorized:{
-                        errorCode = JYAuthorizationStatusGranted;
-                        granted = true;
-                        break;
-                    }
-                    default:break;
-                }                
-            }
-            break;
-        }
+//        case JYServiceTypeAddressBook:
+//        {
+//            description = JYAuthLocalizedStringForKey(@"addressbook.description");
+//            if (version >= 8.0 && version < 9.0)
+//            {
+//#pragma clang diagnostic push
+//#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+//                switch (ABAddressBookGetAuthorizationStatus()) {
+//                    case kABAuthorizationStatusNotDetermined:{
+//                        errorCode = JYAuthorizationStatusNotDetermined;
+//                        suggestion = JYAuthLocalizedStringForKey(@"addressbook.notdetermind");
+//                        if (self.accessIfNotDetermined) {
+//                            ABAddressBookRef addressBookRef =  ABAddressBookCreate();
+//                            __weak typeof(self) weakSelf = self;
+//                            ABAddressBookRequestAccessWithCompletion(addressBookRef, ^(bool granted, CFErrorRef error) {
+//                                __strong typeof(weakSelf) strongSelf = weakSelf;
+//                                [strongSelf requestAccessToService:authType completion:completion];
+//                            });
+//                            return;
+//                        }
+//                        break;
+//                    }
+//                    case kABAuthorizationStatusRestricted:{
+//                        errorCode = JYAuthorizationStatusRestricted;
+//                        suggestion = JYAuthLocalizedStringForKey(@"addressbook.restricted");
+//                        break;
+//                    }
+//                    case kABAuthorizationStatusDenied:{
+//                        errorCode = JYAuthorizationStatusDenied;
+//                        suggestion = JYAuthLocalizedStringForKey(@"addressbook.denied");
+//                        openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+//                        break;
+//                    }
+//                    case kABAuthorizationStatusAuthorized:{
+//                        errorCode = JYAuthorizationStatusGranted;
+//                        granted = true;
+//                        break;
+//                    }
+//                    default:break;
+//                }
+//#pragma clang diagnostic pop
+//            }
+//            else
+//            {
+//                switch ([CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts]) {
+//                    case CNAuthorizationStatusNotDetermined:{
+//                        errorCode = JYAuthorizationStatusNotDetermined;
+//                        suggestion = JYAuthLocalizedStringForKey(@"addressbook.notdetermind");
+//                        if (self.accessIfNotDetermined) {
+//                            CNContactStore *contactStore = [[CNContactStore alloc] init];
+//                            __weak typeof(self) weakSelf = self;
+//                            [contactStore requestAccessForEntityType:CNEntityTypeContacts completionHandler:^(BOOL granted, NSError * _Nullable error) {
+//                                __strong typeof(weakSelf) strongSelf = weakSelf;
+//                                [strongSelf requestAccessToService:authType completion:completion];
+//                            }];
+//                            return;
+//                        }
+//                        break;
+//                    }
+//                    case CNAuthorizationStatusRestricted:{
+//                        errorCode = JYAuthorizationStatusRestricted;
+//                        suggestion = JYAuthLocalizedStringForKey(@"addressbook.restricted");
+//                        break;
+//                    }
+//                    case CNAuthorizationStatusDenied:{
+//                        errorCode = JYAuthorizationStatusDenied;
+//                        suggestion = JYAuthLocalizedStringForKey(@"addressbook.denied");
+//                        openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+//                        break;
+//                    }
+//                    case CNAuthorizationStatusAuthorized:{
+//                        errorCode = JYAuthorizationStatusGranted;
+//                        granted = true;
+//                        break;
+//                    }
+//                    default:break;
+//                }
+//            }
+//            break;
+//        }
             
 #pragma mark - 日历
             
-        case JYServiceTypeCalendar:
-        {
-            description = [self _localizedStringForKey:@"calendar.description"];
-            switch ([EKEventStore authorizationStatusForEntityType:EKEntityTypeEvent]) {
-                case EKAuthorizationStatusNotDetermined:{
-                    errorCode = JYAuthorizationStatusNotDetermined;
-                    suggestion = [self _localizedStringForKey:@"calendar.notdetermind"];
-                    if (self.accessIfNotDetermined) {
-                        EKEventStore *eventStore = [[EKEventStore alloc] init];
-                        __weak typeof(self) weakSelf = self;
-                        [eventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError * _Nullable error) {
-                            __strong typeof(weakSelf) strongSelf = weakSelf;
-                            [strongSelf requestAccessToService:authType completion:completion];
-                        }];
-                        return;
-                    }
-                    break;
-                }
-                case EKAuthorizationStatusRestricted:{
-                    errorCode = JYAuthorizationStatusRestricted;
-                    suggestion = [self _localizedStringForKey:@"calendar.restricted"];
-                    break;
-                }
-                case EKAuthorizationStatusDenied:{
-                    errorCode = JYAuthorizationStatusDenied;
-                    suggestion = [self _localizedStringForKey:@"calendar.denied"];
-                    openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-                    break;
-                }
-                case EKAuthorizationStatusAuthorized:{
-                    errorCode = JYAuthorizationStatusGranted;
-                    granted = true;
-                    break;
-                }
-                default:break;
-            }
-            break;
-        }
+//        case JYServiceTypeCalendar:
+//        {
+//            description = JYAuthLocalizedStringForKey(@"calendar.description");
+//            switch ([EKEventStore authorizationStatusForEntityType:EKEntityTypeEvent]) {
+//                case EKAuthorizationStatusNotDetermined:{
+//                    errorCode = JYAuthorizationStatusNotDetermined;
+//                    suggestion = JYAuthLocalizedStringForKey(@"calendar.notdetermind");
+//                    if (self.accessIfNotDetermined) {
+//                        EKEventStore *eventStore = [[EKEventStore alloc] init];
+//                        __weak typeof(self) weakSelf = self;
+//                        [eventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError * _Nullable error) {
+//                            __strong typeof(weakSelf) strongSelf = weakSelf;
+//                            [strongSelf requestAccessToService:authType completion:completion];
+//                        }];
+//                        return;
+//                    }
+//                    break;
+//                }
+//                case EKAuthorizationStatusRestricted:{
+//                    errorCode = JYAuthorizationStatusRestricted;
+//                    suggestion = JYAuthLocalizedStringForKey(@"calendar.restricted");
+//                    break;
+//                }
+//                case EKAuthorizationStatusDenied:{
+//                    errorCode = JYAuthorizationStatusDenied;
+//                    suggestion = JYAuthLocalizedStringForKey(@"calendar.denied");
+//                    openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+//                    break;
+//                }
+//                case EKAuthorizationStatusAuthorized:{
+//                    errorCode = JYAuthorizationStatusGranted;
+//                    granted = true;
+//                    break;
+//                }
+//                default:break;
+//            }
+//            break;
+//        }
             
 #pragma mark - 提醒事项
             
-        case JYServiceTypeReminder:
-        {
-            description = [self _localizedStringForKey:@"reminder.description"];
-            switch ([EKEventStore authorizationStatusForEntityType:EKEntityTypeReminder]) {
-                case EKAuthorizationStatusNotDetermined:{
-                    errorCode = JYAuthorizationStatusNotDetermined;
-                    suggestion = [self _localizedStringForKey:@"reminder.notdetermind"];
-                    if (self.accessIfNotDetermined) {
-                        EKEventStore *eventStore = [[EKEventStore alloc] init];
-                        __weak typeof(self) weakSelf = self;
-                        [eventStore requestAccessToEntityType:EKEntityTypeReminder completion:^(BOOL granted, NSError * _Nullable error) {
-                            __strong typeof(weakSelf) strongSelf = weakSelf;
-                            [strongSelf requestAccessToService:authType completion:completion];
-                        }];
-                        return;
-                    }
-                    break;
-                }
-                case EKAuthorizationStatusRestricted:{
-                    errorCode = JYAuthorizationStatusRestricted;
-                    suggestion = [self _localizedStringForKey:@"reminder.restricted"];
-                    break;
-                }
-                case EKAuthorizationStatusDenied:{
-                    errorCode = JYAuthorizationStatusDenied;
-                    suggestion = [self _localizedStringForKey:@"reminder.denied"];
-                    openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-                    break;
-                }
-                case EKAuthorizationStatusAuthorized:{
-                    errorCode = JYAuthorizationStatusGranted;
-                    granted = true;
-                    break;
-                }
-                default:break;
-            }
-            break;
-        }
+//        case JYServiceTypeReminder:
+//        {
+//            description = JYAuthLocalizedStringForKey(@"reminder.description");
+//            switch ([EKEventStore authorizationStatusForEntityType:EKEntityTypeReminder]) {
+//                case EKAuthorizationStatusNotDetermined:{
+//                    errorCode = JYAuthorizationStatusNotDetermined;
+//                    suggestion = JYAuthLocalizedStringForKey(@"reminder.notdetermind");
+//                    if (self.accessIfNotDetermined) {
+//                        EKEventStore *eventStore = [[EKEventStore alloc] init];
+//                        __weak typeof(self) weakSelf = self;
+//                        [eventStore requestAccessToEntityType:EKEntityTypeReminder completion:^(BOOL granted, NSError * _Nullable error) {
+//                            __strong typeof(weakSelf) strongSelf = weakSelf;
+//                            [strongSelf requestAccessToService:authType completion:completion];
+//                        }];
+//                        return;
+//                    }
+//                    break;
+//                }
+//                case EKAuthorizationStatusRestricted:{
+//                    errorCode = JYAuthorizationStatusRestricted;
+//                    suggestion = JYAuthLocalizedStringForKey(@"reminder.restricted");
+//                    break;
+//                }
+//                case EKAuthorizationStatusDenied:{
+//                    errorCode = JYAuthorizationStatusDenied;
+//                    suggestion = JYAuthLocalizedStringForKey(@"reminder.denied");
+//                    openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+//                    break;
+//                }
+//                case EKAuthorizationStatusAuthorized:{
+//                    errorCode = JYAuthorizationStatusGranted;
+//                    granted = true;
+//                    break;
+//                }
+//                default:break;
+//            }
+//            break;
+//        }
             
 #pragma mark - 相册
             
-        case JYServiceTypePhoto:
-        {
-            description = [self _localizedStringForKey:@"photo.description"];
-            switch ([PHPhotoLibrary authorizationStatus]) {
-                case PHAuthorizationStatusNotDetermined:{
-                    errorCode = JYAuthorizationStatusNotDetermined;
-                    suggestion = [self _localizedStringForKey:@"photo.notdetermind"];
-                    if (self.accessIfNotDetermined) {
-                        __weak typeof(self) weakSelf = self;
-                        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
-                            __strong typeof(weakSelf) strongSelf = weakSelf;
-                            [strongSelf requestAccessToService:authType completion:completion];
-                        }];
-                        return;
-                    }
-                    break;
-                }
-                case PHAuthorizationStatusRestricted:{
-                    errorCode = JYAuthorizationStatusRestricted;
-                    suggestion = [self _localizedStringForKey:@"photo.restricted"];
-                    break;
-                }
-                case PHAuthorizationStatusDenied:{
-                    errorCode = JYAuthorizationStatusDenied;
-                    suggestion = [self _localizedStringForKey:@"photo.denied"];
-                    openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-                    break;
-                }
-                case PHAuthorizationStatusAuthorized:{
-                    errorCode = JYAuthorizationStatusGranted;
-                    granted = true;
-                    break;
-                }
-                default:break;
-            }
-            break;
-        }
+//        case JYServiceTypePhoto:
+//        {
+//            description = JYAuthLocalizedStringForKey(@"photo.description");
+//            switch ([PHPhotoLibrary authorizationStatus]) {
+//                case PHAuthorizationStatusNotDetermined:{
+//                    errorCode = JYAuthorizationStatusNotDetermined;
+//                    suggestion = JYAuthLocalizedStringForKey(@"photo.notdetermind");
+//                    if (self.accessIfNotDetermined) {
+//                        __weak typeof(self) weakSelf = self;
+//                        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+//                            __strong typeof(weakSelf) strongSelf = weakSelf;
+//                            [strongSelf requestAccessToService:authType completion:completion];
+//                        }];
+//                        return;
+//                    }
+//                    break;
+//                }
+//                case PHAuthorizationStatusRestricted:{
+//                    errorCode = JYAuthorizationStatusRestricted;
+//                    suggestion = JYAuthLocalizedStringForKey(@"photo.restricted");
+//                    break;
+//                }
+//                case PHAuthorizationStatusDenied:{
+//                    errorCode = JYAuthorizationStatusDenied;
+//                    suggestion = JYAuthLocalizedStringForKey(@"photo.denied");
+//                    openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+//                    break;
+//                }
+//                case PHAuthorizationStatusAuthorized:{
+//                    errorCode = JYAuthorizationStatusGranted;
+//                    granted = true;
+//                    break;
+//                }
+//                default:break;
+//            }
+//            break;
+//        }
             
 //#pragma mark - 蓝牙
 //        case JYServiceTypeBlueTooth:// 蓝牙
@@ -416,210 +416,227 @@ NSString * const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
             
 #pragma mark - 麦克风
             
-        case JYServiceTypeMicroPhone:
-        {
-            description = [self _localizedStringForKey:@"microphone.description"];            
-            switch ([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio]) {
-                case AVAuthorizationStatusNotDetermined:{
-                    errorCode = JYAuthorizationStatusNotDetermined;
-                    suggestion = [self _localizedStringForKey:@"microphone.notdetermind"];
-                    if (self.accessIfNotDetermined) {
-                        __weak typeof(self) weakSelf = self;
-                        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
-                            __strong typeof(weakSelf) strongSelf = weakSelf;
-                            [strongSelf requestAccessToService:authType completion:completion];
-                        }];
-                        return;
-                    }
-                    break;
-                }
-                case AVAuthorizationStatusRestricted:{
-                    errorCode = JYAuthorizationStatusRestricted;
-                    suggestion = [self _localizedStringForKey:@"microphone.restricted"];
-                    break;
-                }
-                case AVAuthorizationStatusDenied:{
-                    errorCode = JYAuthorizationStatusDenied;
-                    suggestion = [self _localizedStringForKey:@"microphone.denied"];
-                    openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-                    break;
-                }
-                case AVAuthorizationStatusAuthorized:{
-                    errorCode = JYAuthorizationStatusGranted;
-                    granted = true;
-                    break;
-                }
-                default:break;
-            }
-            break;
-        }
+//        case JYServiceTypeMicroPhone:
+//        {
+//            description = JYAuthLocalizedStringForKey(@"microphone.description");
+//            switch ([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio]) {
+//                case AVAuthorizationStatusNotDetermined:{
+//                    errorCode = JYAuthorizationStatusNotDetermined;
+//                    suggestion = JYAuthLocalizedStringForKey(@"microphone.notdetermind");
+//                    if (self.accessIfNotDetermined) {
+//                        __weak typeof(self) weakSelf = self;
+//                        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
+//                            __strong typeof(weakSelf) strongSelf = weakSelf;
+//                            [strongSelf requestAccessToService:authType completion:completion];
+//                        }];
+//                        return;
+//                    }
+//                    break;
+//                }
+//                case AVAuthorizationStatusRestricted:{
+//                    errorCode = JYAuthorizationStatusRestricted;
+//                    suggestion = JYAuthLocalizedStringForKey(@"microphone.restricted");
+//                    break;
+//                }
+//                case AVAuthorizationStatusDenied:{
+//                    errorCode = JYAuthorizationStatusDenied;
+//                    suggestion = JYAuthLocalizedStringForKey(@"microphone.denied");
+//                    openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+//                    break;
+//                }
+//                case AVAuthorizationStatusAuthorized:{
+//                    errorCode = JYAuthorizationStatusGranted;
+//                    granted = true;
+//                    break;
+//                }
+//                default:break;
+//            }
+//            break;
+//        }
             
-#pragma mark - 录音
-            
-        case JYServiceTypeAudioRecord:
-        {
-            description = [self _localizedStringForKey:@"microphone.description"];
-            switch ([[AVAudioSession sharedInstance] recordPermission]) {
-                case AVAudioSessionRecordPermissionUndetermined:{
-                    errorCode = JYAuthorizationStatusNotDetermined;
-                    suggestion = [self _localizedStringForKey:@"microphone.notdetermind"];
-                    if (self.accessIfNotDetermined) {
-                        __weak typeof(self) weakSelf = self;
-                        [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted){
-                            __strong typeof(weakSelf) strongSelf = weakSelf;
-                            [strongSelf requestAccessToService:authType completion:completion];
-                        }];
-                        return;
-                    }
-                    break;
-                }
-                case AVAudioSessionRecordPermissionDenied:{
-                    errorCode = JYAuthorizationStatusDenied;
-                    suggestion = [self _localizedStringForKey:@"microphone.denied"];
-                    openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-                    break;
-                }
-                case AVAudioSessionRecordPermissionGranted:{
-                    errorCode = JYAuthorizationStatusGranted;
-                    granted = true;
-                    break;
-                }
-                default:break;
-            }
-            break;
-        }
+//#pragma mark - 录音
+//
+//        case JYServiceTypeAudioRecord:
+//        {
+//            description = JYAuthLocalizedStringForKey(@"microphone.description");
+//            switch ([[AVAudioSession sharedInstance] recordPermission]) {
+//                case AVAudioSessionRecordPermissionUndetermined:{
+//                    errorCode = JYAuthorizationStatusNotDetermined;
+//                    suggestion = JYAuthLocalizedStringForKey(@"microphone.notdetermind");
+//                    if (self.accessIfNotDetermined) {
+//                        __weak typeof(self) weakSelf = self;
+//                        [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted){
+//                            __strong typeof(weakSelf) strongSelf = weakSelf;
+//                            [strongSelf requestAccessToService:authType completion:completion];
+//                        }];
+//                        return;
+//                    }
+//                    break;
+//                }
+//                case AVAudioSessionRecordPermissionDenied:{
+//                    errorCode = JYAuthorizationStatusDenied;
+//                    suggestion = JYAuthLocalizedStringForKey(@"microphone.denied");
+//                    openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+//                    break;
+//                }
+//                case AVAudioSessionRecordPermissionGranted:{
+//                    errorCode = JYAuthorizationStatusGranted;
+//                    granted = true;
+//                    break;
+//                }
+//                default:break;
+//            }
+//            break;
+//        }
 
 #pragma mark - 相机
             
-        case JYServiceTypeCamera:
-        {
-            description = [self _localizedStringForKey:@"camera.description"];
-            switch ([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo]) {
-                case AVAuthorizationStatusNotDetermined:{
-                    errorCode = JYAuthorizationStatusNotDetermined;
-                    suggestion = [self _localizedStringForKey:@"camera.notdetermind"];
-                    if (self.accessIfNotDetermined) {
-                        __weak typeof(self) weakSelf = self;
-                        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
-                            __strong typeof(weakSelf) strongSelf = weakSelf;
-                            [strongSelf requestAccessToService:authType completion:completion];
-                        }];
-                        return;
-                    }
-                    break;
-                }
-                case AVAuthorizationStatusRestricted:{
-                    errorCode = JYAuthorizationStatusRestricted;
-                    suggestion = [self _localizedStringForKey:@"camera.restricted"];
-                    break;
-                }
-                case AVAuthorizationStatusDenied:{
-                    errorCode = JYAuthorizationStatusDenied;
-                    suggestion = [self _localizedStringForKey:@"camera.denied"];
-                    openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-                    break;
-                }
-                case AVAuthorizationStatusAuthorized:{
-                    errorCode = JYAuthorizationStatusGranted;
-                    granted = true;
-                    break;
-                }
-                default:break;
-            }
-            break;
-        }
+//        case JYServiceTypeCamera:
+//        {
+//            description = JYAuthLocalizedStringForKey(@"camera.description");
+//            switch ([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo]) {
+//                case AVAuthorizationStatusNotDetermined:{
+//                    errorCode = JYAuthorizationStatusNotDetermined;
+//                    suggestion = JYAuthLocalizedStringForKey(@"camera.notdetermind");
+//                    if (self.accessIfNotDetermined) {
+//                        __weak typeof(self) weakSelf = self;
+//                        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+//                            __strong typeof(weakSelf) strongSelf = weakSelf;
+//                            [strongSelf requestAccessToService:authType completion:completion];
+//                        }];
+//                        return;
+//                    }
+//                    break;
+//                }
+//                case AVAuthorizationStatusRestricted:{
+//                    errorCode = JYAuthorizationStatusRestricted;
+//                    suggestion = JYAuthLocalizedStringForKey(@"camera.restricted");
+//                    break;
+//                }
+//                case AVAuthorizationStatusDenied:{
+//                    errorCode = JYAuthorizationStatusDenied;
+//                    suggestion = JYAuthLocalizedStringForKey(@"camera.denied");
+//                    openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+//                    break;
+//                }
+//                case AVAuthorizationStatusAuthorized:{
+//                    errorCode = JYAuthorizationStatusGranted;
+//                    granted = true;
+//                    break;
+//                }
+//                default:break;
+//            }
+//            break;
+//        }
             
 #pragma mark - 语音识别
             
-        case JYServiceTypeSpeechRecognition:
-        {
-            description = [self _localizedStringForKey:@"speechrecognition.description"];
-            if (@available(iOS 10.0, *)) {
-                switch ([SFSpeechRecognizer authorizationStatus]) {
-                    case SFSpeechRecognizerAuthorizationStatusNotDetermined:{
-                        errorCode = JYAuthorizationStatusNotDetermined;
-                        suggestion = [self _localizedStringForKey:@"speechrecognition.notdetermind"];
-                        if (self.accessIfNotDetermined) {
-                            __weak typeof(self) weakSelf = self;
-                            [SFSpeechRecognizer requestAuthorization:^(SFSpeechRecognizerAuthorizationStatus status) {
-                                __strong typeof(weakSelf) strongSelf = weakSelf;
-                                [strongSelf requestAccessToService:authType completion:completion];
-                            }];
-                            return;
-                        }
-                        break;
-                    }
-                    case SFSpeechRecognizerAuthorizationStatusRestricted:{
-                        errorCode = JYAuthorizationStatusRestricted;
-                        suggestion = [self _localizedStringForKey:@"speechrecognition.restricted"];
-                        break;
-                    }
-                    case SFSpeechRecognizerAuthorizationStatusDenied:{
-                        errorCode = JYAuthorizationStatusDenied;
-                        suggestion = [self _localizedStringForKey:@"speechrecognition.denied"];
-                        openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-                        break;
-                    }
-                    case SFSpeechRecognizerAuthorizationStatusAuthorized:{
-                        errorCode = JYAuthorizationStatusGranted;
-                        granted = true;
-                        break;
-                    }
-                    default:break;
-                }
-            } else {
-                errorCode = JYAuthorizationStatusLowVersion;
-                suggestion = [self _localizedStringForKey:@"speechrecognition.lowversion"];
-            }
-            break;
-        }
+//        case JYServiceTypeSpeechRecognition:
+//        {
+//            description = JYAuthLocalizedStringForKey(@"speechrecognition.description");
+//            if (@available(iOS 10.0, *)) {
+//                switch ([SFSpeechRecognizer authorizationStatus]) {
+//                    case SFSpeechRecognizerAuthorizationStatusNotDetermined:{
+//                        errorCode = JYAuthorizationStatusNotDetermined;
+//                        suggestion = JYAuthLocalizedStringForKey(@"speechrecognition.notdetermind");
+//                        if (self.accessIfNotDetermined) {
+//                            __weak typeof(self) weakSelf = self;
+//                            [SFSpeechRecognizer requestAuthorization:^(SFSpeechRecognizerAuthorizationStatus status) {
+//                                __strong typeof(weakSelf) strongSelf = weakSelf;
+//                                [strongSelf requestAccessToService:authType completion:completion];
+//                            }];
+//                            return;
+//                        }
+//                        break;
+//                    }
+//                    case SFSpeechRecognizerAuthorizationStatusRestricted:{
+//                        errorCode = JYAuthorizationStatusRestricted;
+//                        suggestion = JYAuthLocalizedStringForKey(@"speechrecognition.restricted");
+//                        break;
+//                    }
+//                    case SFSpeechRecognizerAuthorizationStatusDenied:{
+//                        errorCode = JYAuthorizationStatusDenied;
+//                        suggestion = JYAuthLocalizedStringForKey(@"speechrecognition.denied");
+//                        openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+//                        break;
+//                    }
+//                    case SFSpeechRecognizerAuthorizationStatusAuthorized:{
+//                        errorCode = JYAuthorizationStatusGranted;
+//                        granted = true;
+//                        break;
+//                    }
+//                    default:break;
+//                }
+//            } else {
+//                errorCode = JYAuthorizationStatusLowVersion;
+//                suggestion = JYAuthLocalizedStringForKey(@"speechrecognition.lowversion");
+//            }
+//            break;
+//        }
             
 #pragma mark - 健康
             
-        case JYServiceTypeHealth:
-        {
-            description = [self _localizedStringForKey:@"health.description"];
-            if ([HKHealthStore isHealthDataAvailable]) {
-                HKObjectType *stepObject = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
-                HKHealthStore *healthStore = [[HKHealthStore alloc] init];
-                switch ([healthStore authorizationStatusForType:stepObject]) {
-                    case HKAuthorizationStatusNotDetermined:{
-                        errorCode = JYAuthorizationStatusNotDetermined;
-                        suggestion = [self _localizedStringForKey:@"health.notdetermind"];
-                        if (self.accessIfNotDetermined) {
-                            __weak typeof(self) weakSelf = self;
-                            [healthStore requestAuthorizationToShareTypes:[NSSet setWithObjects:stepObject, nil] readTypes:[NSSet setWithObjects:stepObject, nil] completion:^(BOOL success, NSError * _Nullable error) {
-                                __strong typeof(weakSelf) strongSelf = weakSelf;
-                                [strongSelf requestAccessToService:authType completion:completion];
-                            }];
-                            return;
-                        }
-                        break;
-                    }
-                    case HKAuthorizationStatusSharingDenied:{
-                        errorCode = JYAuthorizationStatusDenied;
-                        suggestion = [self _localizedStringForKey:@"health.denied"];
-                        openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-                        break;
-                    }
-                    case HKAuthorizationStatusSharingAuthorized:{
-                        errorCode = JYAuthorizationStatusGranted;
-                        granted = true;
-                        break;
-                    }
-                    default:break;
-                }
-            } else {
-                errorCode =JYAuthorizationStatusUnServiced;
-                suggestion = [self _localizedStringForKey:@"health.unserviced"];
-                openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-            }
-            break;
-        }
+//        case JYServiceTypeHealth:
+//        {
+//            description = JYAuthLocalizedStringForKey(@"health.description");
+//            if ([HKHealthStore isHealthDataAvailable]) {
+//                HKObjectType *stepObject = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
+//                HKHealthStore *healthStore = [[HKHealthStore alloc] init];
+//                switch ([healthStore authorizationStatusForType:stepObject]) {
+//                    case HKAuthorizationStatusNotDetermined:{
+//                        errorCode = JYAuthorizationStatusNotDetermined;
+//                        suggestion = JYAuthLocalizedStringForKey(@"health.notdetermind");
+//                        if (self.accessIfNotDetermined) {
+//                            __weak typeof(self) weakSelf = self;
+//                            [healthStore requestAuthorizationToShareTypes:[NSSet setWithObjects:stepObject, nil] readTypes:[NSSet setWithObjects:stepObject, nil] completion:^(BOOL success, NSError * _Nullable error) {
+//                                __strong typeof(weakSelf) strongSelf = weakSelf;
+//                                [strongSelf requestAccessToService:authType completion:completion];
+//                            }];
+//                            return;
+//                        }
+//                        break;
+//                    }
+//                    case HKAuthorizationStatusSharingDenied:{
+//                        errorCode = JYAuthorizationStatusDenied;
+//                        suggestion = JYAuthLocalizedStringForKey(@"health.denied");
+//                        openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+//                        break;
+//                    }
+//                    case HKAuthorizationStatusSharingAuthorized:{
+//                        errorCode = JYAuthorizationStatusGranted;
+//                        granted = true;
+//                        break;
+//                    }
+//                    default:break;
+//                }
+//            } else {
+//                errorCode =JYAuthorizationStatusUnServiced;
+//                suggestion = JYAuthLocalizedStringForKey(@"health.unserviced");
+//                openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+//            }
+//            break;
+//        }
         
         default:break;
     }
-    
+    if (!description) {
+        UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+        NSDictionary *dict = @{@(JYServiceTypeLocationWhenInUse) : @"定位(使用应用期间)",
+                               @(JYServiceTypeLocationAlways)    : @"定位(始终)",
+                               @(JYServiceTypeAddressBook)       : @"通讯录",
+                               @(JYServiceTypeCalendar)          : @"日历",
+                               @(JYServiceTypeReminder)          : @"提醒",
+                               @(JYServiceTypePhoto)             : @"相册",
+                               @(JYServiceTypeMicroPhone)        : @"麦克风",
+                               @(JYServiceTypeCamera)            : @"相机",
+                               @(JYServiceTypeSpeechRecognition) : @"语音识别",
+                               @(JYServiceTypeHealth)            : @"健康",
+                            };
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"为了使用该服务，请在 JYAuthorizationManager.m 文件将 %@ 的代码取消注释，并在 info.plist 文件上添加上该服务", dict[@(authType)]] preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:nil]];
+        [keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+        return;
+    }
     NSError *error = nil;
     if (!granted) {
         NSDictionary *infoDict = @{
@@ -641,22 +658,23 @@ NSString * const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
 }
 
 
-- (void)jy_showErrorDetail:(NSError *)error viewController:(UIViewController *)viewController
++ (void)jy_showErrorDetail:(NSError *)error viewController:(UIViewController *)viewController
 {
     if (!error || ![error isKindOfClass:[NSError class]]) {
         return;
     }
-    if (self.dontAlertIfNotDetermined && error.code == JYAuthorizationStatusNotDetermined) {
+    JYAuthorizationManager *manager = [JYAuthorizationManager shareManager];
+    if (manager.dontAlertIfNotDetermined && error.code == JYAuthorizationStatusNotDetermined) {
         return;
     }
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:error.localizedDescription
                                                                              message:error.localizedRecoverySuggestion
                                                                       preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addAction:[UIAlertAction actionWithTitle:[self _localizedStringForKey:@"ok"]
+    [alertController addAction:[UIAlertAction actionWithTitle:JYAuthLocalizedStringForKey(@"ok")
                                                         style:UIAlertActionStyleDefault handler:nil]];
     
     if (error.userInfo[JYAuthOpenSettingKey] != nil && ![error.userInfo[JYAuthOpenSettingKey] isKindOfClass:[NSNull class]]) {
-        [alertController addAction:[UIAlertAction actionWithTitle:[self _localizedStringForKey:@"go"]
+        [alertController addAction:[UIAlertAction actionWithTitle:JYAuthLocalizedStringForKey(@"go")
                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             if (@available(iOS 10.0, *)) {
                 [[UIApplication sharedApplication] openURL:error.userInfo[JYAuthOpenSettingKey]
@@ -679,8 +697,7 @@ NSString * const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
 
 #pragma mark - Localized
 
-- (NSString *)_localizedStringForKey:(NSString *)key
-{
+static inline NSString * JYAuthLocalizedStringForKey(NSString *key) {
     if ([key isKindOfClass:[NSString class]]) {
         static NSBundle *bundle = nil;
         if (bundle == nil) {
@@ -696,11 +713,10 @@ NSString * const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
         }
         NSString *value = [bundle localizedStringForKey:key value:key table:nil];
         
-        return value;        
+        return value;
     }
     return nil;
 }
-
 
 #pragma mark - locationManager
 
