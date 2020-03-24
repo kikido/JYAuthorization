@@ -153,7 +153,7 @@ NSString * const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
 //            }
 //            break;
 //        }
-//
+
 //        case JYServiceTypeLocationAlways:// 定位-始终
 //        {
 //            description = JYAuthLocalizedStringForKey(@"location.description");
@@ -222,8 +222,10 @@ NSString * const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
 //                            ABAddressBookRef addressBookRef =  ABAddressBookCreate();
 //                            __weak typeof(self) weakSelf = self;
 //                            ABAddressBookRequestAccessWithCompletion(addressBookRef, ^(bool granted, CFErrorRef error) {
-//                                __strong typeof(weakSelf) strongSelf = weakSelf;
-//                                [strongSelf requestAccessToService:authType completion:completion];
+//                                dispatch_async(dispatch_get_main_queue(), ^{
+//                                    __strong typeof(weakSelf) strongSelf = weakSelf;
+//                                    [strongSelf requestAccessToService:authType completion:completion];
+//                                });
 //                            });
 //                            return;
 //                        }
@@ -259,8 +261,10 @@ NSString * const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
 //                            CNContactStore *contactStore = [[CNContactStore alloc] init];
 //                            __weak typeof(self) weakSelf = self;
 //                            [contactStore requestAccessForEntityType:CNEntityTypeContacts completionHandler:^(BOOL granted, NSError * _Nullable error) {
-//                                __strong typeof(weakSelf) strongSelf = weakSelf;
-//                                [strongSelf requestAccessToService:authType completion:completion];
+//                                dispatch_async(dispatch_get_main_queue(), ^{
+//                                    __strong typeof(weakSelf) strongSelf = weakSelf;
+//                                    [strongSelf requestAccessToService:authType completion:completion];
+//                                });
 //                            }];
 //                            return;
 //                        }
@@ -298,11 +302,17 @@ NSString * const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
 //                    errorCode = JYAuthorizationStatusNotDetermined;
 //                    suggestion = JYAuthLocalizedStringForKey(@"calendar.notdetermind");
 //                    if (self.accessIfNotDetermined) {
-//                        EKEventStore *eventStore = [[EKEventStore alloc] init];
+//                        static EKEventStore *eventStore;
+//                        static dispatch_once_t onceToken;
+//                        dispatch_once(&onceToken, ^{
+//                            eventStore = [[EKEventStore alloc] init];
+//                        });
 //                        __weak typeof(self) weakSelf = self;
 //                        [eventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError * _Nullable error) {
-//                            __strong typeof(weakSelf) strongSelf = weakSelf;
-//                            [strongSelf requestAccessToService:authType completion:completion];
+//                            dispatch_async(dispatch_get_main_queue(), ^{
+//                                __strong typeof(weakSelf) strongSelf = weakSelf;
+//                                [strongSelf requestAccessToService:authType completion:completion];
+//                            });
 //                        }];
 //                        return;
 //                    }
@@ -339,11 +349,17 @@ NSString * const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
 //                    errorCode = JYAuthorizationStatusNotDetermined;
 //                    suggestion = JYAuthLocalizedStringForKey(@"reminder.notdetermind");
 //                    if (self.accessIfNotDetermined) {
-//                        EKEventStore *eventStore = [[EKEventStore alloc] init];
+//                        static EKEventStore *eventStore;
+//                        static dispatch_once_t onceToken;
+//                        dispatch_once(&onceToken, ^{
+//                            eventStore = [[EKEventStore alloc] init];
+//                        });
 //                        __weak typeof(self) weakSelf = self;
 //                        [eventStore requestAccessToEntityType:EKEntityTypeReminder completion:^(BOOL granted, NSError * _Nullable error) {
-//                            __strong typeof(weakSelf) strongSelf = weakSelf;
-//                            [strongSelf requestAccessToService:authType completion:completion];
+//                            dispatch_async(dispatch_get_main_queue(), ^{
+//                                __strong typeof(weakSelf) strongSelf = weakSelf;
+//                                [strongSelf requestAccessToService:authType completion:completion];
+//                            });
 //                        }];
 //                        return;
 //                    }
@@ -382,8 +398,10 @@ NSString * const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
 //                    if (self.accessIfNotDetermined) {
 //                        __weak typeof(self) weakSelf = self;
 //                        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
-//                            __strong typeof(weakSelf) strongSelf = weakSelf;
-//                            [strongSelf requestAccessToService:authType completion:completion];
+//                            dispatch_async(dispatch_get_main_queue(), ^{
+//                                __strong typeof(weakSelf) strongSelf = weakSelf;
+//                                [strongSelf requestAccessToService:authType completion:completion];
+//                            });
 //                        }];
 //                        return;
 //                    }
@@ -426,8 +444,10 @@ NSString * const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
 //                    if (self.accessIfNotDetermined) {
 //                        __weak typeof(self) weakSelf = self;
 //                        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
-//                            __strong typeof(weakSelf) strongSelf = weakSelf;
-//                            [strongSelf requestAccessToService:authType completion:completion];
+//                            dispatch_async(dispatch_get_main_queue(), ^{
+//                                __strong typeof(weakSelf) strongSelf = weakSelf;
+//                                [strongSelf requestAccessToService:authType completion:completion];
+//                            });
 //                        }];
 //                        return;
 //                    }
@@ -466,8 +486,10 @@ NSString * const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
 //                    if (self.accessIfNotDetermined) {
 //                        __weak typeof(self) weakSelf = self;
 //                        [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted){
-//                            __strong typeof(weakSelf) strongSelf = weakSelf;
-//                            [strongSelf requestAccessToService:authType completion:completion];
+//                            dispatch_async(dispatch_get_main_queue(), ^{
+//                                __strong typeof(weakSelf) strongSelf = weakSelf;
+//                                [strongSelf requestAccessToService:authType completion:completion];
+//                            });
 //                        }];
 //                        return;
 //                    }
@@ -501,8 +523,10 @@ NSString * const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
 //                    if (self.accessIfNotDetermined) {
 //                        __weak typeof(self) weakSelf = self;
 //                        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
-//                            __strong typeof(weakSelf) strongSelf = weakSelf;
-//                            [strongSelf requestAccessToService:authType completion:completion];
+//                            dispatch_async(dispatch_get_main_queue(), ^{
+//                                __strong typeof(weakSelf) strongSelf = weakSelf;
+//                                [strongSelf requestAccessToService:authType completion:completion];
+//                            });
 //                        }];
 //                        return;
 //                    }
@@ -542,8 +566,10 @@ NSString * const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
 //                        if (self.accessIfNotDetermined) {
 //                            __weak typeof(self) weakSelf = self;
 //                            [SFSpeechRecognizer requestAuthorization:^(SFSpeechRecognizerAuthorizationStatus status) {
-//                                __strong typeof(weakSelf) strongSelf = weakSelf;
-//                                [strongSelf requestAccessToService:authType completion:completion];
+//                                dispatch_async(dispatch_get_main_queue(), ^{
+//                                    __strong typeof(weakSelf) strongSelf = weakSelf;
+//                                    [strongSelf requestAccessToService:authType completion:completion];
+//                                });
 //                            }];
 //                            return;
 //                        }
@@ -589,8 +615,10 @@ NSString * const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
 //                        if (self.accessIfNotDetermined) {
 //                            __weak typeof(self) weakSelf = self;
 //                            [healthStore requestAuthorizationToShareTypes:[NSSet setWithObjects:stepObject, nil] readTypes:[NSSet setWithObjects:stepObject, nil] completion:^(BOOL success, NSError * _Nullable error) {
-//                                __strong typeof(weakSelf) strongSelf = weakSelf;
-//                                [strongSelf requestAccessToService:authType completion:completion];
+//                                dispatch_async(dispatch_get_main_queue(), ^{
+//                                    __strong typeof(weakSelf) strongSelf = weakSelf;
+//                                    [strongSelf requestAccessToService:authType completion:completion];
+//                                });
 //                            }];
 //                            return;
 //                        }

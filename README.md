@@ -28,6 +28,7 @@ JYServiceTypeHealth // 健康
 ```
 
 > 因为 iOS 保护用户隐私的问题，可能在使用 JYAuthorization 之后会出现打包上传后被退回的情况。举个例子，你的项目中不需要使用语音识别这个服务，但因为 JYAuthorization 包含了访问了语音识别的代码，打包上传后还是会被拒绝掉。
+> 
 > 为了避免出现这个问题，JYAuthorization 将所有的服务按块都注释掉了。如果你需要使用某个服务，请在 JYAuthorizationManager.m 文件中将该服务的代码取消注释掉
 
 ### 如何使用
