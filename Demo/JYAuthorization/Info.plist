@@ -33,15 +33,13 @@
 	<key>NSContactsUsageDescription</key>
 	<string>需要获取您的通讯录权限</string>
 	<key>NSHealthShareUsageDescription</key>
-	<string>visit "health" and read the data</string>
+	<string>visit &quot;health&quot; and read the data</string>
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>this shuold written in english</string>
 	<key>NSHomeKitUsageDescription</key>
 	<string>HomeKit权限</string>
-	<key>NSLocationAlwaysUsageDescription</key>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>一直定位权限</string>
-	<key>NSLocationUsageDescription</key>
-	<string>定位权限</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>使用app期间定位权限</string>
 	<key>NSMicrophoneUsageDescription</key>

@@ -11,7 +11,7 @@
 #import "JYAuthorizationManager.h"
 
 @interface ViewController ()
-
+@property (nonatomic, strong) JYAuthorizationManager *manager;
 @end
 
 @implementation ViewController
@@ -102,14 +102,15 @@
 
 - (void)accessService:(JYServiceType)serviceType
 {
-    JYAuthorizationManager *manager = [JYAuthorizationManager shareManager];
-    [manager requestAccessToService:serviceType completion:^(BOOL granted, NSError * _Nonnull error) {
+    JYAuthorizationManager *manager = [[JYAuthorizationManager alloc] init];
+    [manager requestAccessToService:serviceType accessIfNotDetermined:YES completion:^(BOOL granted, NSError * _Nonnull error) {
         if (!granted) {
-            [JYAuthorizationManager jy_showErrorDetail:error viewController:self];
+            [JYAuthorizationManager showErrorDetail:error viewController:self];
         } else {
             // todo...
         }
     }];
+//    _manager = manager;
 }
 
 

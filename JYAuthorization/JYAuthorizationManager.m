@@ -27,22 +27,6 @@ NSString * const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
 /** 服务类型 */
 @property (nonatomic, assign) JYServiceType serviceType;
 
-/**
- * 保存验证结果字典
- *
- * @discuss 有一些服务，当你在系统设置更改了该 app 里该服务的权限后，该 app 会重启，所以可以将结果存储保存起来
- */
-@property (nonatomic, strong) NSMutableDictionary *authDict;
-
-//------------------------------
-/// @name location
-///-----------------------------
-
-/**
- * 定位服务的入口
- *
- * 检测定位服务权限时需长持有该对象
- */
 @property (nonatomic, strong) CLLocationManager *locationManager;
 
 /**
@@ -51,36 +35,19 @@ NSString * const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
  * @discuss 当第一次验证时如果结果是 not determined，此时需要保存 completion
  */
 @property (nonatomic, copy) void(^locationCompletion)(BOOL granted, NSError *error);
-
+@property (nonatomic, copy) void(^keepAliveBlcok)(void);
 @end
 
 @implementation JYAuthorizationManager
 
-+ (instancetype)shareManager
-{
-    static JYAuthorizationManager *manager = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        if (manager == nil) {
-            manager = [[super allocWithZone:NULL] init];
-            manager.accessIfNotDetermined    = true;
-            manager.dontAlertIfNotDetermined = true;
-            manager.authDict                 = [NSMutableDictionary dictionary];
-        }
-    });
-    return manager;
-}
 
-+ (instancetype)allocWithZone:(struct _NSZone *)zone
+- (void)requestAccessToService:(JYServiceType)authType
+         accessIfNotDetermined:(BOOL)accessIfNotDetermined
+                    completion:(void(^)(BOOL granted, NSError *error))completion;
 {
-    return [self shareManager];
-}
-
-#pragma mark -
-
-- (void)requestAccessToService:(JYServiceType)authType completion:(void(^)(BOOL granted, NSError *error))completion
-{
-    NSError *authError = self.authDict[@(authType)];
+    NSMutableDictionary *authErrorDict = _JYGetAuthErrorDict();
+    NSError *authError = authErrorDict[@(authType)];
+    
     // 如果不为空，则表示已经验证过权限了，且结果不通过
     if ([authError isKindOfClass:[NSError class]]) {
         completion(false, authError);
@@ -101,58 +68,57 @@ NSString * const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
     switch (authType) {
 #pragma mark - 定位
             
-//        case JYServiceTypeLocationWhenInUse:// 定位-使用应用期间
-//        {
-//            description = JYAuthLocalizedStringForKey(@"location.description");
-//            if ([CLLocationManager locationServicesEnabled]) {
-//                switch ([CLLocationManager authorizationStatus]) {
-//                    case kCLAuthorizationStatusNotDetermined:{
-//                        // 未决定
-//                        errorCode = JYAuthorizationStatusNotDetermined;
-//                        suggestion = JYAuthLocalizedStringForKey(@"location.notdetermind");
-//                        if (self.accessIfNotDetermined) {
-//                            self.serviceType = authType;
-//                            self.locationCompletion = completion;
-//                            self.locationManager.delegate = self;
-//                            [self.locationManager requestWhenInUseAuthorization];
-//                            return;
-//                        }
-//                        break;
-//                    }
-//                    case kCLAuthorizationStatusRestricted:{
-//                        errorCode = JYAuthorizationStatusNotDetermined;
-//                        suggestion = JYAuthLocalizedStringForKey(@"location.restricted");
-//                        break;
-//                    }
-//                    case kCLAuthorizationStatusDenied:{
-//                        errorCode = JYAuthorizationStatusDenied;
-//                        suggestion = JYAuthLocalizedStringForKey(@"location.wheninuse.denied");
-//                        openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-//                        break;
-//                    }
-//                    case kCLAuthorizationStatusAuthorizedAlways:{
-//                        errorCode = JYAuthorizationStatusDenied;
-//                        suggestion = JYAuthLocalizedStringForKey(@"location.wheninuse.always");
-//                        openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-//                        break;
-//                    }
-//                    case kCLAuthorizationStatusAuthorizedWhenInUse:{
-//                        errorCode = JYAuthorizationStatusGranted;
-//                        granted = true;
-//                        break;
-//                    }
-//                    default:break;
-//                }
-//                _locationCompletion       = nil;
-//                _locationManager.delegate = nil;
-//                _locationManager          = nil;
-//            } else {
-//                errorCode = JYAuthorizationStatusUnServiced;
-//                suggestion = JYAuthLocalizedStringForKey(@"location.unserviced");
-//                openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-//            }
-//            break;
-//        }
+        case JYServiceTypeLocationWhenInUse:// 定位-使用应用期间
+        {
+            description = JYAuthLocalizedStringForKey(@"location.description");
+            if ([CLLocationManager locationServicesEnabled]) {
+                switch ([CLLocationManager authorizationStatus]) {
+                    case kCLAuthorizationStatusNotDetermined:{
+                        // 未决定
+                        errorCode = JYAuthorizationStatusNotDetermined;
+                        suggestion = JYAuthLocalizedStringForKey(@"location.notdetermind");
+                        if (accessIfNotDetermined) {
+                            self.serviceType = authType;
+                            self.locationCompletion = completion;
+                            self.locationManager.delegate = self;
+                            [self.locationManager requestWhenInUseAuthorization];
+                            self.keepAliveBlcok = ^{
+                                uintptr_t ptr = (uintptr_t)self;
+                            };
+                            return;
+                        }
+                        break;
+                    }
+                    case kCLAuthorizationStatusRestricted:{
+                        errorCode = JYAuthorizationStatusRestricted;
+                        suggestion = JYAuthLocalizedStringForKey(@"location.restricted");
+                        break;
+                    }
+                    case kCLAuthorizationStatusDenied:{
+                        errorCode = JYAuthorizationStatusDenied;
+                        suggestion = JYAuthLocalizedStringForKey(@"location.wheninuse.denied");
+                        openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+                        break;
+                    }
+                    case kCLAuthorizationStatusAuthorizedAlways:{
+                        errorCode = JYAuthorizationStatusGranted;
+                        granted = true;
+                        break;
+                    }
+                    case kCLAuthorizationStatusAuthorizedWhenInUse:{
+                        errorCode = JYAuthorizationStatusGranted;
+                        granted = true;
+                        break;
+                    }
+                    default:break;
+                }
+            } else {
+                errorCode = JYAuthorizationStatusUnServiced;
+                suggestion = JYAuthLocalizedStringForKey(@"location.unserviced");
+                openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+            }
+            break;
+        }
 
 //        case JYServiceTypeLocationAlways:// 定位-始终
 //        {
@@ -162,16 +128,19 @@ NSString * const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
 //                    case kCLAuthorizationStatusNotDetermined:{
 //                        errorCode = JYAuthorizationStatusNotDetermined;
 //                        suggestion = JYAuthLocalizedStringForKey(@"location.notdetermind");
-//                        if (self.accessIfNotDetermined) {
+//                        if (accessIfNotDetermined) {
 //                            self.locationCompletion = completion;
 //                            self.locationManager.delegate = self;
 //                            [self.locationManager requestAlwaysAuthorization];
+//                            self.keepAliveBlcok = ^{
+//                                uintptr_t ptr = (uintptr_t)self;
+//                            };
 //                            return;
 //                        }
 //                        break;
 //                    }
 //                    case kCLAuthorizationStatusRestricted:{
-//                        errorCode = JYAuthorizationStatusNotDetermined;
+//                        errorCode = JYAuthorizationStatusRestricted;
 //                        suggestion = JYAuthLocalizedStringForKey(@"location.restricted");
 //                        break;
 //                    }
@@ -187,16 +156,12 @@ NSString * const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
 //                        break;
 //                    }
 //                    case kCLAuthorizationStatusAuthorizedWhenInUse:{
-//                        errorCode = JYAuthorizationStatusDenied;
-//                        suggestion = JYAuthLocalizedStringForKey(@"location.always.wheninuse");
-//                        openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+//                        errorCode = JYAuthorizationStatusGranted;
+//                        granted = true;
 //                        break;
 //                    }
 //                    default:break;
 //                }
-//                _locationCompletion       = nil;
-//                _locationManager.delegate = nil;
-//                _locationManager          = nil;
 //            } else {
 //                errorCode = JYAuthorizationStatusUnServiced;
 //                suggestion = JYAuthLocalizedStringForKey(@"location.unserviced");
@@ -218,15 +183,18 @@ NSString * const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
 //                    case kABAuthorizationStatusNotDetermined:{
 //                        errorCode = JYAuthorizationStatusNotDetermined;
 //                        suggestion = JYAuthLocalizedStringForKey(@"addressbook.notdetermind");
-//                        if (self.accessIfNotDetermined) {
+//                        if (accessIfNotDetermined) {
 //                            ABAddressBookRef addressBookRef =  ABAddressBookCreate();
 //                            __weak typeof(self) weakSelf = self;
 //                            ABAddressBookRequestAccessWithCompletion(addressBookRef, ^(bool granted, CFErrorRef error) {
 //                                dispatch_async(dispatch_get_main_queue(), ^{
 //                                    __strong typeof(weakSelf) strongSelf = weakSelf;
-//                                    [strongSelf requestAccessToService:authType completion:completion];
+//                                    [strongSelf requestAccessToService:authType accessIfNotDetermined:accessIfNotDetermined completion:completion];
 //                                });
 //                            });
+//                            self.keepAliveBlcok = ^{
+//                                uintptr_t ptr = (uintptr_t)self;
+//                            };
 //                            return;
 //                        }
 //                        break;
@@ -257,15 +225,18 @@ NSString * const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
 //                    case CNAuthorizationStatusNotDetermined:{
 //                        errorCode = JYAuthorizationStatusNotDetermined;
 //                        suggestion = JYAuthLocalizedStringForKey(@"addressbook.notdetermind");
-//                        if (self.accessIfNotDetermined) {
+//                        if (accessIfNotDetermined) {
 //                            CNContactStore *contactStore = [[CNContactStore alloc] init];
 //                            __weak typeof(self) weakSelf = self;
 //                            [contactStore requestAccessForEntityType:CNEntityTypeContacts completionHandler:^(BOOL granted, NSError * _Nullable error) {
 //                                dispatch_async(dispatch_get_main_queue(), ^{
 //                                    __strong typeof(weakSelf) strongSelf = weakSelf;
-//                                    [strongSelf requestAccessToService:authType completion:completion];
+//                                    [strongSelf requestAccessToService:authType accessIfNotDetermined:accessIfNotDetermined completion:completion];
 //                                });
 //                            }];
+//                            self.keepAliveBlcok = ^{
+//                                uintptr_t ptr = (uintptr_t)self;
+//                            };
 //                            return;
 //                        }
 //                        break;
@@ -301,7 +272,7 @@ NSString * const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
 //                case EKAuthorizationStatusNotDetermined:{
 //                    errorCode = JYAuthorizationStatusNotDetermined;
 //                    suggestion = JYAuthLocalizedStringForKey(@"calendar.notdetermind");
-//                    if (self.accessIfNotDetermined) {
+//                    if (accessIfNotDetermined) {
 //                        static EKEventStore *eventStore;
 //                        static dispatch_once_t onceToken;
 //                        dispatch_once(&onceToken, ^{
@@ -311,9 +282,13 @@ NSString * const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
 //                        [eventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError * _Nullable error) {
 //                            dispatch_async(dispatch_get_main_queue(), ^{
 //                                __strong typeof(weakSelf) strongSelf = weakSelf;
-//                                [strongSelf requestAccessToService:authType completion:completion];
+//                                [strongSelf requestAccessToService:authType accessIfNotDetermined:accessIfNotDetermined completion:completion];
 //                            });
+//                            eventStore = nil;
 //                        }];
+//                        self.keepAliveBlcok = ^{
+//                            uintptr_t ptr = (uintptr_t)self;
+//                        };
 //                        return;
 //                    }
 //                    break;
@@ -348,7 +323,7 @@ NSString * const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
 //                case EKAuthorizationStatusNotDetermined:{
 //                    errorCode = JYAuthorizationStatusNotDetermined;
 //                    suggestion = JYAuthLocalizedStringForKey(@"reminder.notdetermind");
-//                    if (self.accessIfNotDetermined) {
+//                    if (accessIfNotDetermined) {
 //                        static EKEventStore *eventStore;
 //                        static dispatch_once_t onceToken;
 //                        dispatch_once(&onceToken, ^{
@@ -358,10 +333,15 @@ NSString * const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
 //                        [eventStore requestAccessToEntityType:EKEntityTypeReminder completion:^(BOOL granted, NSError * _Nullable error) {
 //                            dispatch_async(dispatch_get_main_queue(), ^{
 //                                __strong typeof(weakSelf) strongSelf = weakSelf;
-//                                [strongSelf requestAccessToService:authType completion:completion];
+//                                [strongSelf requestAccessToService:authType accessIfNotDetermined:accessIfNotDetermined completion:completion];
 //                            });
+//                            eventStore = nil;
 //                        }];
-//                        return;
+//                        self.keepAliveBlcok = ^{
+//                            uintptr_t ptr = (uintptr_t)self;
+//                        };
+//                        return
+//                        ;
 //                    }
 //                    break;
 //                }
@@ -395,14 +375,17 @@ NSString * const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
 //                case PHAuthorizationStatusNotDetermined:{
 //                    errorCode = JYAuthorizationStatusNotDetermined;
 //                    suggestion = JYAuthLocalizedStringForKey(@"photo.notdetermind");
-//                    if (self.accessIfNotDetermined) {
+//                    if (accessIfNotDetermined) {
 //                        __weak typeof(self) weakSelf = self;
 //                        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
 //                            dispatch_async(dispatch_get_main_queue(), ^{
 //                                __strong typeof(weakSelf) strongSelf = weakSelf;
-//                                [strongSelf requestAccessToService:authType completion:completion];
+//                                [strongSelf requestAccessToService:authType accessIfNotDetermined:accessIfNotDetermined completion:completion];
 //                            });
 //                        }];
+//                        self.keepAliveBlcok = ^{
+//                            uintptr_t ptr = (uintptr_t)self;
+//                        };
 //                        return;
 //                    }
 //                    break;
@@ -427,10 +410,7 @@ NSString * const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
 //            }
 //            break;
 //        }
-            
-//#pragma mark - 蓝牙
-//        case JYServiceTypeBlueTooth:// 蓝牙
-//            break;
+        
             
 #pragma mark - 麦克风
             
@@ -441,14 +421,17 @@ NSString * const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
 //                case AVAuthorizationStatusNotDetermined:{
 //                    errorCode = JYAuthorizationStatusNotDetermined;
 //                    suggestion = JYAuthLocalizedStringForKey(@"microphone.notdetermind");
-//                    if (self.accessIfNotDetermined) {
+//                    if (accessIfNotDetermined) {
 //                        __weak typeof(self) weakSelf = self;
 //                        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
 //                            dispatch_async(dispatch_get_main_queue(), ^{
 //                                __strong typeof(weakSelf) strongSelf = weakSelf;
-//                                [strongSelf requestAccessToService:authType completion:completion];
+//                                [strongSelf requestAccessToService:authType accessIfNotDetermined:accessIfNotDetermined completion:completion];
 //                            });
 //                        }];
+//                        self.keepAliveBlcok = ^{
+//                            uintptr_t ptr = (uintptr_t)self;
+//                        };
 //                        return;
 //                    }
 //                    break;
@@ -474,43 +457,6 @@ NSString * const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
 //            break;
 //        }
             
-//#pragma mark - 录音
-//
-//        case JYServiceTypeAudioRecord:
-//        {
-//            description = JYAuthLocalizedStringForKey(@"microphone.description");
-//            switch ([[AVAudioSession sharedInstance] recordPermission]) {
-//                case AVAudioSessionRecordPermissionUndetermined:{
-//                    errorCode = JYAuthorizationStatusNotDetermined;
-//                    suggestion = JYAuthLocalizedStringForKey(@"microphone.notdetermind");
-//                    if (self.accessIfNotDetermined) {
-//                        __weak typeof(self) weakSelf = self;
-//                        [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted){
-//                            dispatch_async(dispatch_get_main_queue(), ^{
-//                                __strong typeof(weakSelf) strongSelf = weakSelf;
-//                                [strongSelf requestAccessToService:authType completion:completion];
-//                            });
-//                        }];
-//                        return;
-//                    }
-//                    break;
-//                }
-//                case AVAudioSessionRecordPermissionDenied:{
-//                    errorCode = JYAuthorizationStatusDenied;
-//                    suggestion = JYAuthLocalizedStringForKey(@"microphone.denied");
-//                    openSetting = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-//                    break;
-//                }
-//                case AVAudioSessionRecordPermissionGranted:{
-//                    errorCode = JYAuthorizationStatusGranted;
-//                    granted = true;
-//                    break;
-//                }
-//                default:break;
-//            }
-//            break;
-//        }
-
 #pragma mark - 相机
             
 //        case JYServiceTypeCamera:
@@ -520,14 +466,17 @@ NSString * const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
 //                case AVAuthorizationStatusNotDetermined:{
 //                    errorCode = JYAuthorizationStatusNotDetermined;
 //                    suggestion = JYAuthLocalizedStringForKey(@"camera.notdetermind");
-//                    if (self.accessIfNotDetermined) {
+//                    if (accessIfNotDetermined) {
 //                        __weak typeof(self) weakSelf = self;
 //                        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
 //                            dispatch_async(dispatch_get_main_queue(), ^{
 //                                __strong typeof(weakSelf) strongSelf = weakSelf;
-//                                [strongSelf requestAccessToService:authType completion:completion];
+//                                [strongSelf requestAccessToService:authType accessIfNotDetermined:accessIfNotDetermined completion:completion];
 //                            });
 //                        }];
+//                        self.keepAliveBlcok = ^{
+//                            uintptr_t ptr = (uintptr_t)self;
+//                        };
 //                        return;
 //                    }
 //                    break;
@@ -563,14 +512,17 @@ NSString * const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
 //                    case SFSpeechRecognizerAuthorizationStatusNotDetermined:{
 //                        errorCode = JYAuthorizationStatusNotDetermined;
 //                        suggestion = JYAuthLocalizedStringForKey(@"speechrecognition.notdetermind");
-//                        if (self.accessIfNotDetermined) {
+//                        if (accessIfNotDetermined) {
 //                            __weak typeof(self) weakSelf = self;
 //                            [SFSpeechRecognizer requestAuthorization:^(SFSpeechRecognizerAuthorizationStatus status) {
 //                                dispatch_async(dispatch_get_main_queue(), ^{
 //                                    __strong typeof(weakSelf) strongSelf = weakSelf;
-//                                    [strongSelf requestAccessToService:authType completion:completion];
+//                                    [strongSelf requestAccessToService:authType accessIfNotDetermined:accessIfNotDetermined completion:completion];
 //                                });
 //                            }];
+//                            self.keepAliveBlcok = ^{
+//                                uintptr_t ptr = (uintptr_t)self;
+//                            };
 //                            return;
 //                        }
 //                        break;
@@ -612,14 +564,17 @@ NSString * const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
 //                    case HKAuthorizationStatusNotDetermined:{
 //                        errorCode = JYAuthorizationStatusNotDetermined;
 //                        suggestion = JYAuthLocalizedStringForKey(@"health.notdetermind");
-//                        if (self.accessIfNotDetermined) {
+//                        if (accessIfNotDetermined) {
 //                            __weak typeof(self) weakSelf = self;
 //                            [healthStore requestAuthorizationToShareTypes:[NSSet setWithObjects:stepObject, nil] readTypes:[NSSet setWithObjects:stepObject, nil] completion:^(BOOL success, NSError * _Nullable error) {
 //                                dispatch_async(dispatch_get_main_queue(), ^{
 //                                    __strong typeof(weakSelf) strongSelf = weakSelf;
-//                                    [strongSelf requestAccessToService:authType completion:completion];
+//                                    [strongSelf requestAccessToService:authType accessIfNotDetermined:accessIfNotDetermined completion:completion];
 //                                });
 //                            }];
+//                            self.keepAliveBlcok = ^{
+//                                uintptr_t ptr = (uintptr_t)self;
+//                            };
 //                            return;
 //                        }
 //                        break;
@@ -675,24 +630,21 @@ NSString * const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
         error = [NSError errorWithDomain:JYAuthErrorDomain code:errorCode userInfo:infoDict];
     }
     if (errorCode != JYAuthorizationStatusNotDetermined && errorCode != JYAuthorizationStatusGranted) {
-        self.authDict[@(authType)] = error;
+        authErrorDict[@(authType)] = error;
     } else if (errorCode == JYAuthorizationStatusGranted) {
-        self.authDict[@(authType)] = [NSNull null];
+        authErrorDict[@(authType)] = [NSNull null];
     }
     
     if (completion) {
         completion(granted, granted ? nil : error);
     }
+    self.keepAliveBlcok = nil;
 }
 
 
-+ (void)jy_showErrorDetail:(NSError *)error viewController:(UIViewController *)viewController
++ (void)showErrorDetail:(NSError *)error viewController:(UIViewController *)viewController
 {
     if (!error || ![error isKindOfClass:[NSError class]]) {
-        return;
-    }
-    JYAuthorizationManager *manager = [JYAuthorizationManager shareManager];
-    if (manager.dontAlertIfNotDetermined && error.code == JYAuthorizationStatusNotDetermined) {
         return;
     }
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:error.localizedDescription
@@ -714,12 +666,26 @@ NSString * const JYAuthOpenSettingKey = @"JYAuthOpenSettingKey";
     [viewController presentViewController:alertController animated:YES completion:nil];
 }
 
+#pragma mark - private
+
+static inline NSMutableDictionary * _JYGetAuthErrorDict() {
+    static NSMutableDictionary *dict;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        dict = [NSMutableDictionary dictionary];
+    });
+    return dict;
+}
+
 #pragma mark - CLLocationManagerDelegate
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
-    if (self.locationCompletion && status != kCLAuthorizationStatusNotDetermined) {
-        [self requestAccessToService:self.serviceType completion:self.locationCompletion];
+    if (status != kCLAuthorizationStatusNotDetermined) {
+        [self requestAccessToService:self.serviceType accessIfNotDetermined:false completion:self.locationCompletion];
+        _locationCompletion = nil;
+        _locationManager.delegate = nil;
+        _locationManager = nil;
     }
 }
 
